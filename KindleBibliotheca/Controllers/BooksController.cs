@@ -10,22 +10,22 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly BibliothecaContext _context;
-        public BooksController(BibliothecaContext context)
+        private readonly BookRepository _repo;
+        public BooksController(BookRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            var books = await _context.Books.ToListAsync();
-            return books;
+            var books = await _repo.GetBooksAsync();
+            return Ok(books);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _repo.GetBookByIdAsync(id);
         }
     }
 }
