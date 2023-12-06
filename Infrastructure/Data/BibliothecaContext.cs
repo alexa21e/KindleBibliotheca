@@ -11,5 +11,6 @@ namespace Infrastructure.Data
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Series> Series { get; set; }
     }
 }
