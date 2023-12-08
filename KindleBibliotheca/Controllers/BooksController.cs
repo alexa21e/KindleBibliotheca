@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿
+using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +12,8 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly BookRepository _repo;
-        public BooksController(BookRepository repo)
+        private readonly IBookRepository _repo;
+        public BooksController(IBookRepository repo)
         {
             _repo = repo;
         }
@@ -23,7 +25,7 @@ namespace KindleBibliotheca.Controllers
             return Ok(books);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<ActionResult<Book>> GetBook(Guid id)
         {
             return await _repo.GetBookByIdAsync(id);
         }

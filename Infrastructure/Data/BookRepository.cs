@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System.ComponentModel;
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +12,9 @@ namespace Infrastructure.Data
         {
             _context = context;
         }
-        public async Task<Book> GetBookByIdAsync(int id)
+        public async Task<Book> GetBookByIdAsync(Guid id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _context.Books.FirstAsync(b => b.Id == id);
         }
 
         public async Task<IReadOnlyList<Book>> GetBooksAsync()

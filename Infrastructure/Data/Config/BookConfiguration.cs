@@ -17,6 +17,7 @@ namespace Infrastructure.Data.Config
             builder.Property(b => b.PagesNumber).IsRequired();
             builder.Property(b => b.PublishingHouse).IsRequired();
             builder.Property(b => b.Rating).IsRequired();
+            builder.Property(b => b.Rating).HasColumnType("decimal(18,2)");
             builder.HasOne(b => b.Series).WithMany()
                 .HasForeignKey(s => s.SeriesId);
         }

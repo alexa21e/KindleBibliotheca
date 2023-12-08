@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BibliothecaContext))]
-    [Migration("20231208201911_Initial")]
+    [Migration("20231208205021_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -60,10 +60,10 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("SeriesId")
+                    b.Property<Guid?>("SeriesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SeriesPlace")
+                    b.Property<int?>("SeriesPlace")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -97,9 +97,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Core.Entities.Series", "Series")
                         .WithMany()
-                        .HasForeignKey("SeriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeriesId");
 
                     b.Navigation("Series");
                 });

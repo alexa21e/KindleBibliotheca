@@ -1,0 +1,37 @@
+﻿[
+  {
+    "Title": "Twisted love",
+    "Author": "Ana Huang",
+    "PublishingDate": "2023-09-23",
+    "Rating": 4.6,
+    "Genre": 5,
+    "PublishingHouse": "Epica",
+    "SeriesPlace": 1,
+    "PagesNumber": 356,
+    "Descrption": "lorem ipsum",
+    "CoverUrl": "images/twisted-love.png"
+  },
+  {
+    "Title": "Twisted hate",
+    "Author": "Ana Huang",
+    "PublishingDate": "2023-10-08",
+    "Rating": 4.3,
+    "Genre": 5,
+    "PublishingHouse": "Epica",
+    "SeriesPlace": 2,
+    "PagesNumber": 386,
+    "Descrption": "lorem ipsum",
+    "CoverUrl": "images/twisted-hate.png"
+  },
+  {
+    "Title": "The fault in our stars",
+    "Author": "John Green",
+    "PublishingDate": "2015-09-23",
+    "Rating": 4.9,
+    "Genre": 5,
+    "PublishingHouse": "Trei",
+    "PagesNumber": 298,
+    "Descrption": "lorem ipsum",
+    "CoverUrl": "images/tfios.png"
+  }
+]

@@ -4,7 +4,7 @@ namespace Core.Interfaces
 {
     public interface IBookRepository
     {
-        Task<Book> GetBookByIdAsync(int id);
+        Task<Book> GetBookByIdAsync(Guid id);
         Task<IReadOnlyList<Book>> GetBooksAsync();
     }
 }

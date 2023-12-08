@@ -57,10 +57,10 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("SeriesId")
+                    b.Property<Guid?>("SeriesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SeriesPlace")
+                    b.Property<int?>("SeriesPlace")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -94,9 +94,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Core.Entities.Series", "Series")
                         .WithMany()
-                        .HasForeignKey("SeriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeriesId");
 
                     b.Navigation("Series");
                 });

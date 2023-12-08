@@ -34,8 +34,8 @@ namespace Infrastructure.Migrations
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Genre = table.Column<int>(type: "int", nullable: false),
                     PublishingHouse = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SeriesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeriesPlace = table.Column<int>(type: "int", nullable: false),
+                    SeriesId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SeriesPlace = table.Column<int>(type: "int", nullable: true),
                     PagesNumber = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -47,8 +47,7 @@ namespace Infrastructure.Migrations
                         name: "FK_Books_Series_SeriesId",
                         column: x => x.SeriesId,
                         principalTable: "Series",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
