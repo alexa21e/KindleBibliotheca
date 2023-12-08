@@ -12,7 +12,6 @@ namespace Infrastructure.Data.Config
             builder.Property(b => b.Title).IsRequired().HasMaxLength(100);
             builder.Property(b => b.Author).IsRequired().HasMaxLength(100);
             builder.Property(b => b.CoverUrl).IsRequired();
-            builder.Property(b => b.Formats).IsRequired();
             builder.Property(b => b.Genre).IsRequired();
             builder.Property(b => b.PagesNumber).IsRequired();
             builder.Property(b => b.PublishingHouse).IsRequired();

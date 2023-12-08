@@ -8,7 +8,7 @@
     "PublishingHouse": "Epica",
     "SeriesPlace": 1,
     "PagesNumber": 356,
-    "Descrption": "lorem ipsum",
+    "Description": "lorem ipsum",
     "CoverUrl": "images/twisted-love.png"
   },
   {
@@ -20,7 +20,7 @@
     "PublishingHouse": "Epica",
     "SeriesPlace": 2,
     "PagesNumber": 386,
-    "Descrption": "lorem ipsum",
+    "Description": "lorem ipsum",
     "CoverUrl": "images/twisted-hate.png"
   },
   {
@@ -31,7 +31,7 @@
     "Genre": 5,
     "PublishingHouse": "Trei",
     "PagesNumber": 298,
-    "Descrption": "lorem ipsum",
+    "Description": "lorem ipsum",
     "CoverUrl": "images/tfios.png"
   }
 ]
