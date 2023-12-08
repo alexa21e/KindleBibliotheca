@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BibliothecaContext))]
-    [Migration("20231206125506_Initial")]
+    [Migration("20231208201911_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -33,7 +33,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CoverUrl")
                         .IsRequired()
@@ -62,11 +63,17 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("SeriesId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("SeriesPlace")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SeriesId");
 
                     b.ToTable("Books");
                 });
@@ -81,12 +88,20 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("No")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Series");
+                });
+
+            modelBuilder.Entity("Core.Entities.Book", b =>
+                {
+                    b.HasOne("Core.Entities.Series", "Series")
+                        .WithMany()
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Series");
                 });
 #pragma warning restore 612, 618
         }
