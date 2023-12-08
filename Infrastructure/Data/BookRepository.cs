@@ -14,12 +14,26 @@ namespace Infrastructure.Data
         }
         public async Task<Book> GetBookByIdAsync(Guid id)
         {
-            return await _context.Books.FirstAsync(b => b.Id == id);
+            return await _context.Books
+                .Include(b => b.Series)
+                .FirstAsync(b => b.Id == id);
         }
 
         public async Task<IReadOnlyList<Book>> GetBooksAsync()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books
+                .Include(b => b.Series)
+                .ToListAsync();
+        }
+
+        public async Task<Series> GetSeriesByIdAsync(Guid id)
+        {
+            return await _context.Series.FirstAsync(s => s.Id == id);
+        }
+
+        public async Task<IReadOnlyList<Series>> GetSeriesAsync()
+        {
+            return await _context.Series.ToListAsync();
         }
     }
 }

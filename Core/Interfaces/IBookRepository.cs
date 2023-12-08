@@ -6,5 +6,7 @@ namespace Core.Interfaces
     {
         Task<Book> GetBookByIdAsync(Guid id);
         Task<IReadOnlyList<Book>> GetBooksAsync();
+        Task<Series> GetSeriesByIdAsync(Guid id);
+        Task<IReadOnlyList<Series>> GetSeriesAsync();
     }
 }

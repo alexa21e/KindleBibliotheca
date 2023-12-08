@@ -21,13 +21,19 @@ namespace KindleBibliotheca.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            var books = await _repo.GetBooksAsync();
-            return Ok(books);
+            return Ok(await _repo.GetBooksAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(Guid id)
         {
             return await _repo.GetBookByIdAsync(id);
         }
+
+        [HttpGet("series")]
+        public async Task<ActionResult<List<Series>>> GetSeries()
+        {
+            return Ok(await _repo.GetSeriesAsync());
+        }
+
     }
 }
