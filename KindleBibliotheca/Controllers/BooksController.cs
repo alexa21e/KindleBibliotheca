@@ -12,27 +12,30 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly IBookRepository _repo;
-        public BooksController(IBookRepository repo)
+        private readonly IGenericRepository<Book> _booksRepo;
+        private readonly IGenericRepository<Series> _seriesRepo;
+
+        public BooksController(IGenericRepository<Book> booksRepo, IGenericRepository<Series> seriesRepo)
         {
-            _repo = repo;
+            _booksRepo = booksRepo;
+            _seriesRepo = seriesRepo;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            return Ok(await _repo.GetBooksAsync());
+            return Ok(await _booksRepo.ListAllAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(Guid id)
         {
-            return await _repo.GetBookByIdAsync(id);
+            return await _booksRepo.GetByIdAsync(id);
         }
 
         [HttpGet("series")]
         public async Task<ActionResult<List<Series>>> GetSeries()
         {
-            return Ok(await _repo.GetSeriesAsync());
+            return Ok(await _seriesRepo.ListAllAsync());
         }
 
     }
