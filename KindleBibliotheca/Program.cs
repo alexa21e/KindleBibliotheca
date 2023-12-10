@@ -16,6 +16,7 @@ builder.Services.AddDbContext<BibliothecaContext>(options =>
 });
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
