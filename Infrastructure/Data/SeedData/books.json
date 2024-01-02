@@ -7,6 +7,7 @@
     "Genre": 5,
     "PublishingHouse": "Epica",
     "SeriesPlace": 1,
+    "SeriesId": "0a7efa40-3ad1-4831-b070-d28e5d804bb6",
     "PagesNumber": 356,
     "Description": "lorem ipsum",
     "CoverUrl": "images/twisted-love.png"
@@ -19,6 +20,7 @@
     "Genre": 5,
     "PublishingHouse": "Epica",
     "SeriesPlace": 2,
+    "SeriesId": "0a7efa40-3ad1-4831-b070-d28e5d804bb6",
     "PagesNumber": 386,
     "Description": "lorem ipsum",
     "CoverUrl": "images/twisted-hate.png"

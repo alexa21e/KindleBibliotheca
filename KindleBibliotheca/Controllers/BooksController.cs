@@ -1,6 +1,7 @@
 ﻿
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,9 @@ namespace KindleBibliotheca.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            return Ok(await _booksRepo.ListAllAsync());
+            var spec = new BooksWithSeriesSpecifications();
+            var products = await _booksRepo.ListAsync(spec);
+            return Ok(products);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(Guid id)
