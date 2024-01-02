@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "66aa32a3-86e6-46d8-90aa-55de248bcac4",
     "Title": "Twisted love",
     "Author": "Ana Huang",
     "PublishingDate": "2023-09-23",
@@ -13,6 +14,7 @@
     "CoverUrl": "images/twisted-love.png"
   },
   {
+    "Id": "9f15c10b-3c96-4754-93f1-5485ab83fbe4",
     "Title": "Twisted hate",
     "Author": "Ana Huang",
     "PublishingDate": "2023-10-08",
@@ -26,6 +28,7 @@
     "CoverUrl": "images/twisted-hate.png"
   },
   {
+    "Id": "a8eee6aa-17ca-46a0-ad4e-3dc5839940b3",
     "Title": "The fault in our stars",
     "Author": "John Green",
     "PublishingDate": "2015-09-23",
