@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data;
+using KindleBibliotheca.Errors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -19,7 +20,7 @@ namespace KindleBibliotheca.Controllers
             var book = _context.Books.Find(new Guid("13d367dd-27a8-4456-8bf3-d597c692557a"));
             if (book == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
             return Ok();
         }
@@ -27,7 +28,7 @@ namespace KindleBibliotheca.Controllers
         [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-            var book = _context.Books.Find(43);
+            var book = _context.Books.Find(new Guid("13d367dd-27a8-4456-8bf3-d597c692557a"));
             var bookToReturn = book.ToString();
             return Ok();
         }
@@ -35,13 +36,7 @@ namespace KindleBibliotheca.Controllers
         [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
-            return BadRequest();
-        }
-
-        [HttpGet("badrequest/{id}")]
-        public ActionResult GetBadRequest(int id)
-        {
-            return Ok();
+            return BadRequest(new ApiResponse(400));
         }
     }
 }
