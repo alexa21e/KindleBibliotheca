@@ -11,9 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KindleBibliotheca.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BooksController : ControllerBase
+    public class BooksController : BaseAPIController
     {
         private readonly IGenericRepository<Book> _booksRepo;
         private readonly IGenericRepository<Series> _seriesRepo;
