@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -16,9 +17,12 @@ namespace KindleBibliotheca.Controllers
     {
         private readonly IGenericRepository<Book> _booksRepo;
         private readonly IGenericRepository<Series> _seriesRepo;
+        private readonly IMapper _mapper;
 
-        public BooksController(IGenericRepository<Book> booksRepo, IGenericRepository<Series> seriesRepo)
+        public BooksController(IGenericRepository<Book> booksRepo, IGenericRepository<Series> seriesRepo,
+            IMapper mapper)
         {
+            _mapper = mapper;
             _booksRepo = booksRepo;
             _seriesRepo = seriesRepo;
         }
@@ -28,42 +32,15 @@ namespace KindleBibliotheca.Controllers
         {
             var spec = new BooksWithSeriesSpecifications();
             var books = await _booksRepo.ListAsync(spec);
-            return books.Select(book => new BookToReturn
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                PublishingDate = book.PublishingDate,
-                Rating = book.Rating,
-                Genre = book.Genre,
-                PublishingHouse = book.PublishingHouse,
-                SeriesName = book.Series.Name,
-                SeriesPlace = book.SeriesPlace,
-                PagesNumber = book.PagesNumber,
-                Description = book.Description,
-                CoverUrl = book.CoverUrl
-            }).ToList();
+            return Ok(_mapper.Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books));
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<BookToReturn>> GetBook(Guid id)
         {
             var spec = new BooksWithSeriesSpecifications(id);
             var book = await _booksRepo.GetEntityWithSpec(spec);
-            return new BookToReturn
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Author = book.Author,
-                PublishingDate = book.PublishingDate,
-                Rating = book.Rating,
-                Genre = book.Genre,
-                PublishingHouse = book.PublishingHouse,
-                SeriesName = book.Series.Name,
-                SeriesPlace = book.SeriesPlace,
-                PagesNumber = book.PagesNumber,
-                Description = book.Description,
-                CoverUrl = book.CoverUrl
-            };
+            return _mapper.Map<Book, BookToReturn>(book);
         }
 
         [HttpGet("series")]

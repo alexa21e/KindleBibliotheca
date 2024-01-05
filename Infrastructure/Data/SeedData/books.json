@@ -11,7 +11,7 @@
     "SeriesId": "0a7efa40-3ad1-4831-b070-d28e5d804bb6",
     "PagesNumber": 356,
     "Description": "lorem ipsum",
-    "CoverUrl": "images/twisted-love.png"
+    "CoverUrl": "images/twistedlove.jpg"
   },
   {
     "Id": "9f15c10b-3c96-4754-93f1-5485ab83fbe4",
@@ -25,7 +25,7 @@
     "SeriesId": "0a7efa40-3ad1-4831-b070-d28e5d804bb6",
     "PagesNumber": 386,
     "Description": "lorem ipsum",
-    "CoverUrl": "images/twisted-hate.png"
+    "CoverUrl": "images/twistedhate.jpg"
   },
   {
     "Id": "a8eee6aa-17ca-46a0-ad4e-3dc5839940b3",
@@ -37,6 +37,6 @@
     "PublishingHouse": "Trei",
     "PagesNumber": 298,
     "Description": "lorem ipsum",
-    "CoverUrl": "images/tfios.png"
+    "CoverUrl": "images/tfios.jpg"
   }
 ]
