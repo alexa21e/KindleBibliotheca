@@ -3,6 +3,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Infrastructure.Data;
+using KindleBibliotheca.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,17 +24,46 @@ namespace KindleBibliotheca.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBooks()
+        public async Task<ActionResult<List<BookToReturn>>> GetBooks()
         {
             var spec = new BooksWithSeriesSpecifications();
             var books = await _booksRepo.ListAsync(spec);
-            return Ok(books);
+            return books.Select(book => new BookToReturn
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                PublishingDate = book.PublishingDate,
+                Rating = book.Rating,
+                Genre = book.Genre,
+                PublishingHouse = book.PublishingHouse,
+                SeriesName = book.Series.Name,
+                SeriesPlace = book.SeriesPlace,
+                PagesNumber = book.PagesNumber,
+                Description = book.Description,
+                CoverUrl = book.CoverUrl
+            }).ToList();
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(Guid id)
+        public async Task<ActionResult<BookToReturn>> GetBook(Guid id)
         {
             var spec = new BooksWithSeriesSpecifications(id);
-            return await _booksRepo.GetEntityWithSpec(spec);
+            var book = await _booksRepo.GetEntityWithSpec(spec);
+            return new BookToReturn
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                PublishingDate = book.PublishingDate,
+                Rating = book.Rating,
+                Genre = book.Genre,
+                PublishingHouse = book.PublishingHouse,
+                SeriesName = book.Series.Name,
+                SeriesPlace = book.SeriesPlace,
+                PagesNumber = book.PagesNumber,
+                Description = book.Description,
+                CoverUrl = book.CoverUrl
+            };
         }
 
         [HttpGet("series")]
