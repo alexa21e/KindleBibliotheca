@@ -11,9 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KindleBibliotheca.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BooksController : ControllerBase
+    public class BooksController : BaseAPIController
     {
         private readonly IGenericRepository<Book> _booksRepo;
         private readonly IGenericRepository<Series> _seriesRepo;
@@ -28,9 +26,12 @@ namespace KindleBibliotheca.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<BookToReturn>>> GetBooks()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Return list of all books")]
+        public async Task<ActionResult<List<BookToReturn>>> GetBooks(string sort)
         {
-            var spec = new BooksWithSeriesSpecifications();
+            var spec = new BooksWithSeriesSpecifications(sort);
             var books = await _booksRepo.ListAsync(spec);
             return Ok(_mapper.Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books));
         }
