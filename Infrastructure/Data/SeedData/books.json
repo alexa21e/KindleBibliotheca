@@ -2,7 +2,7 @@
   {
     "Id": "66aa32a3-86e6-46d8-90aa-55de248bcac4",
     "Title": "Twisted love",
-    "Author": "Ana Huang",
+    "AuthorId": "07356a1a-a92a-41d5-ab43-e407b8827778",
     "PublishingDate": "2021-04-21",
     "Rating": 3.73,
     "Genre": 5,
@@ -16,7 +16,7 @@
   {
     "Id": "9f15c10b-3c96-4754-93f1-5485ab83fbe4",
     "Title": "Twisted hate",
-    "Author": "Ana Huang",
+    "AuthorId": "07356a1a-a92a-41d5-ab43-e407b8827778",
     "PublishingDate": "2022-01-27",
     "Rating": 4.03,
     "Genre": 5,
@@ -30,7 +30,7 @@
   {
     "Id": "a8eee6aa-17ca-46a0-ad4e-3dc5839940b3",
     "Title": "The fault in our stars",
-    "Author": "John Green",
+    "AuthorId": "60c764c1-4934-4968-b2be-c56711443318",
     "PublishingDate": "2012-01-10",
     "Rating": 4.14,
     "Genre": 8,
@@ -42,7 +42,7 @@
   {
     "Id": "9d085da5-6ed4-46d2-b6b8-3a62352d49d3",
     "Title": "Twisted games",
-    "Author": "Ana Huang",
+    "AuthorId": "07356a1a-a92a-41d5-ab43-e407b8827778",
     "PublishingDate": "2021-07-29",
     "Rating": 4.12,
     "Genre": 5,
@@ -56,7 +56,7 @@
   {
     "Id": "244f7535-a488-4577-9793-becd208a39f7",
     "Title": "Twisted lies",
-    "Author": "Ana Huang",
+    "AuthorId": "07356a1a-a92a-41d5-ab43-e407b8827778",
     "PublishingDate": "2022-06-30",
     "Rating": 4.23,
     "Genre": 5,
@@ -70,7 +70,7 @@
   {
     "Id": "67f892f0-20a9-42ba-9833-dff58726dcd4",
     "Title": "A curse so dark and lonely",
-    "Author": "Brigid Kemmerer",
+    "AuthorId": "5853431e-c953-4660-9f7a-591701ee7100",
     "PublishingDate": "2019-01-29",
     "Rating": 3.99,
     "Genre": 0,
@@ -84,7 +84,7 @@
   {
     "Id": "5cd49d70-98da-4cad-92cf-e8916f3e07ff",
     "Title": "A heart so fierce and broken",
-    "Author": "Brigid Kemmerer",
+    "AuthorId": "5853431e-c953-4660-9f7a-591701ee7100",
     "PublishingDate": "2020-01-07",
     "Rating": 3.90,
     "Genre": 0,
@@ -98,7 +98,7 @@
   {
     "Id": "c62d8acd-44b4-4919-ace4-20efee3511cf",
     "Title": "A vow so bold and deadly",
-    "Author": "Brigid Kemmerer",
+    "AuthorId": "5853431e-c953-4660-9f7a-591701ee7100",
     "PublishingDate": "2021-01-26",
     "Rating": 3.79,
     "Genre": 0,
@@ -112,7 +112,7 @@
   {
     "Id": "d98925fd-f76a-4c6b-bf8c-82e75fbbe762",
     "Title": "Ugly love",
-    "Author": "Colleen Hoover",
+    "AuthorId": "5062ceb0-39a5-4ad4-9fae-dd4fa409c393",
     "PublishingDate": "2014-08-05",
     "Rating": 4.07,
     "Genre": 5,
@@ -124,7 +124,7 @@
   {
     "Id": "907daeeb-e7eb-42db-91a1-0339893a0d0b",
     "Title": "The sea of tranquillity",
-    "Author": "Katja Millay",
+    "AuthorId": "12272519-90d3-46cf-b968-3a4bf1e87c44",
     "PublishingDate": "2012-09-05",
     "Rating": 4.29,
     "Genre": 5,
@@ -136,7 +136,7 @@
   {
     "Id": "118f341f-84cf-4794-97dd-8f1152233245",
     "Title": "Turtles all the way down",
-    "Author": "John Green",
+    "AuthorId": "60c764c1-4934-4968-b2be-c56711443318",
     "PublishingDate": "2017-10-10",
     "Rating": 3.89,
     "Genre": 8,
@@ -148,7 +148,7 @@
   {
     "Id": "f4c723bd-c5ad-4a74-b659-9e4448f54a08",
     "Title": "Divergent",
-    "Author": "Veronica Roth",
+    "AuthorId": "c51431f1-083b-4537-be7d-0177385b1c16",
     "PublishingDate": "2011-04-25",
     "Rating": 4.15,
     "Genre": 8,
@@ -162,7 +162,7 @@
   {
     "Id": "6888e95b-110d-4d4f-8c8f-3cf5f24a096a",
     "Title": "Insurgent",
-    "Author": "Veronica Roth",
+    "AuthorId": "c51431f1-083b-4537-be7d-0177385b1c16",
     "PublishingDate": "2012-05-01",
     "Rating": 3.98,
     "Genre": 8,
@@ -176,7 +176,7 @@
   {
     "Id": "fcc42e60-6408-482b-8a69-5c9e1f05ed08",
     "Title": "Allegiant",
-    "Author": "Veronica Roth",
+    "AuthorId": "c51431f1-083b-4537-be7d-0177385b1c16",
     "PublishingDate": "2013-10-22",
     "Rating": 3.60,
     "Genre": 8,
@@ -190,7 +190,7 @@
   {
     "Id": "64870423-5e6f-4aac-b950-635522112888",
     "Title": "Six of crows",
-    "Author": "Leigh Bardugo",
+    "AuthorId": "10296ba1-ae6f-4281-9c31-7b5090f1f1de",
     "PublishingDate": "2015-09-29",
     "Rating": 4.49,
     "Genre": 0,
@@ -204,7 +204,7 @@
   {
     "Id": "f5ca23fb-5c4d-45c4-8bdd-debbe0360dee",
     "Title": "Crooked kingdom",
-    "Author": "Leigh Bardugo",
+    "AuthorId": "10296ba1-ae6f-4281-9c31-7b5090f1f1de",
     "PublishingDate": "2016-09-27",
     "Rating": 4.60,
     "Genre": 0,
@@ -218,7 +218,7 @@
   {
     "Id": "2c5bb05c-14e2-4143-9658-2200522686c7",
     "Title": "Everything everything",
-    "Author": "Nicola Yoon",
+    "AuthorId": "108f9ac3-37d2-4690-83ff-f0b9ace39e65",
     "PublishingDate": "2015-09-01",
     "Rating": 3.98,
     "Genre": 8,
@@ -230,7 +230,7 @@
   {
     "Id": "15c581ee-f92e-4dc2-b961-b52874aaef55",
     "Title": "All the bright places",
-    "Author": "Jennifer Niven",
+    "AuthorId": "b0aadcdb-02b5-4006-a737-2a15e49012b8",
     "PublishingDate": "2015-01-06",
     "Rating": 4.13,
     "Genre": 8,
@@ -242,7 +242,7 @@
   {
     "Id": "1fc16bbe-a972-4b6e-8b64-b3b531d6d26d",
     "Title": "The song of Achilles",
-    "Author": "Madeline Miller",
+    "AuthorId": "29357fdc-0a8d-4afd-9be9-9c1e0b3b7a3d",
     "PublishingDate": "2011-09-20",
     "Rating": 4.33,
     "Genre": 0,
