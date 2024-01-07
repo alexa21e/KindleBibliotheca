@@ -13,6 +13,7 @@ namespace Infrastructure.Data
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Series> Series { get; set; }
+        public DbSet<Author> Authors { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

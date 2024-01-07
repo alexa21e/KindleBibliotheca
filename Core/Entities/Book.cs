@@ -5,7 +5,8 @@ namespace Core.Entities
     public class Book : BaseEntity
     {
         public string Title { get; set; } = string.Empty;
-        public string Author { get; set; } = string.Empty;
+        public Guid AuthorId { get; set; }
+        public Author Author { get; set; }
         public DateTime PublishingDate { get; set; }
         public decimal Rating { get; set; }
         public Genre Genre { get; set; }

@@ -18,14 +18,16 @@ namespace KindleBibliotheca.Controllers
     {
         private readonly IGenericRepository<Book> _booksRepo;
         private readonly IGenericRepository<Series> _seriesRepo;
+        private readonly IGenericRepository<Author> _authorsRepo;
         private readonly IMapper _mapper;
 
         public BooksController(IGenericRepository<Book> booksRepo, IGenericRepository<Series> seriesRepo,
-            IMapper mapper)
+            IGenericRepository<Author> authorsRepo, IMapper mapper)
         {
             _mapper = mapper;
             _booksRepo = booksRepo;
             _seriesRepo = seriesRepo;
+            _authorsRepo  = authorsRepo;
         }
 
         [HttpGet]
@@ -35,8 +37,8 @@ namespace KindleBibliotheca.Controllers
         public async Task<ActionResult<Pagination<BookToReturn>>> GetBooks(
            [FromQuery]BookSpecParam bookParams)
         {
-            var spec = new BooksWithSeriesSpecifications(bookParams);
-            var countSpec = new BookWithFiltersForCountSpecification(bookParams);
+            var spec = new BooksWithSeriesAndAuthorsSpecifications(bookParams);
+            var countSpec = new BooksWithFiltersForCountSpecification(bookParams);
             var totalBooks = await _booksRepo.CountAsync(spec);
             var books = await _booksRepo.ListAsync(spec);
             var data = _mapper
@@ -51,7 +53,7 @@ namespace KindleBibliotheca.Controllers
         [SwaggerOperation(Summary = "Return book by id")]
         public async Task<ActionResult<BookToReturn>> GetBook(Guid id)
         {
-            var spec = new BooksWithSeriesSpecifications(id);
+            var spec = new BooksWithSeriesAndAuthorsSpecifications(id);
             var book = await _booksRepo.GetEntityWithSpec(spec);
             if (book == null)
             {
@@ -69,5 +71,13 @@ namespace KindleBibliotheca.Controllers
             return Ok(await _seriesRepo.ListAllAsync());
         }
 
+        [HttpGet("authors")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Return list of all authors")]
+        public async Task<ActionResult<List<Series>>> GetAuthors()
+        {
+            return Ok(await _authorsRepo.ListAllAsync());
+        }
     }
 }

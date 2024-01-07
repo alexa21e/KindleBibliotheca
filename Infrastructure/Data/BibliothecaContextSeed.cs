@@ -13,6 +13,7 @@ namespace Infrastructure.Data
                 var books = JsonSerializer.Deserialize<List<Book>>(booksData);
                 context.Books.AddRange(books);
             }
+
             if (!context.Series.Any())
             {
                 var seriesData = File.ReadAllText("../Infrastructure/Data/SeedData/series.json");
@@ -20,7 +21,14 @@ namespace Infrastructure.Data
                 context.Series.AddRange(series);
             }
 
-            if(context.ChangeTracker.HasChanges())
+            if (!context.Authors.Any())
+            {
+                var authorsData = File.ReadAllText("../Infrastructure/Data/SeedData/authors.json");
+                var authors = JsonSerializer.Deserialize<List<Author>>(authorsData);
+                context.Authors.AddRange(authors);
+            }
+
+            if (context.ChangeTracker.HasChanges())
                 await context.SaveChangesAsync();
         }
     }
