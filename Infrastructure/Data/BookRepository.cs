@@ -35,5 +35,15 @@ namespace Infrastructure.Data
         {
             return await _context.Series.ToListAsync();
         }
+
+        public async Task<Author> GetAuthorByIdAsync(Guid id)
+        {
+            return await _context.Authors.FirstAsync(a => a.Id == id);
+        }
+
+        public async Task<IReadOnlyList<Author>> GetAuthorsAsync()
+        {
+            return await _context.Authors.ToListAsync();
+        }
     }
 }

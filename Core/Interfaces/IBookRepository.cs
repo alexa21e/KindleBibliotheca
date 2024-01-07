@@ -8,5 +8,7 @@ namespace Core.Interfaces
         Task<IReadOnlyList<Book>> GetBooksAsync();
         Task<Series> GetSeriesByIdAsync(Guid id);
         Task<IReadOnlyList<Series>> GetSeriesAsync();
+        Task<Author> GetAuthorByIdAsync(Guid id);
+        Task<IReadOnlyList<Author>> GetAuthorsAsync();
     }
 }

@@ -12,6 +12,7 @@
         }
         private int _pageSize = 6;
         public Guid? SeriesId { get; set; }
+        public Guid? AuthorId { get; set; }
         public string? Sort { get; set; }
 
         private string _search;
