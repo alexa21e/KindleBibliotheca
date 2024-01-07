@@ -5,17 +5,18 @@ namespace Core.Specifications
 {
     public class BooksWithSeriesSpecifications: BaseSpecification<Book>
     {
-        public BooksWithSeriesSpecifications(string? sort, Guid? seriesId)
+        public BooksWithSeriesSpecifications(BookSpecParam bookParams)
             : base(x => 
-                    (!seriesId.HasValue || x.SeriesId == seriesId)
-                )
+                    (!bookParams.SeriesId.HasValue || x.SeriesId == bookParams.SeriesId))
         {
             AddInclude(x => x.Series);
             AddOrderBy(x => x.Title);
+            ApplyPaging(bookParams.PageSize * (bookParams.PageIndex - 1), 
+                bookParams.PageSize);
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(bookParams.Sort))
             {
-                switch (sort)
+                switch (bookParams.Sort)
                 {
                     case "TitleAsc":
                         AddOrderBy(b => b.Title);

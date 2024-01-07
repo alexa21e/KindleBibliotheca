@@ -6,6 +6,7 @@ using Core.Specifications;
 using Infrastructure.Data;
 using KindleBibliotheca.DTOs;
 using KindleBibliotheca.Errors;
+using KindleBibliotheca.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,12 +32,17 @@ namespace KindleBibliotheca.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all books")]
-        public async Task<ActionResult<List<BookToReturn>>> GetBooks(
-            string? sort, Guid? seriesId)
+        public async Task<ActionResult<Pagination<BookToReturn>>> GetBooks(
+           [FromQuery]BookSpecParam bookParams)
         {
-            var spec = new BooksWithSeriesSpecifications(sort, seriesId);
+            var spec = new BooksWithSeriesSpecifications(bookParams);
+            var countSpec = new BookWithFiltersForCountSpecification(bookParams);
+            var totalBooks = await _booksRepo.CountAsync(spec);
             var books = await _booksRepo.ListAsync(spec);
-            return Ok(_mapper.Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books));
+            var data = _mapper
+                .Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books);
+            return Ok(new Pagination<BookToReturn>(bookParams.PageIndex,
+                bookParams.PageSize, totalBooks, data));
         }
 
         [HttpGet("{id}")]
