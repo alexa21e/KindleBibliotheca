@@ -31,9 +31,10 @@ namespace KindleBibliotheca.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all books")]
-        public async Task<ActionResult<List<BookToReturn>>> GetBooks(string sort)
+        public async Task<ActionResult<List<BookToReturn>>> GetBooks(
+            string? sort, Guid? seriesId)
         {
-            var spec = new BooksWithSeriesSpecifications(sort);
+            var spec = new BooksWithSeriesSpecifications(sort, seriesId);
             var books = await _booksRepo.ListAsync(spec);
             return Ok(_mapper.Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books));
         }
