@@ -3,14 +3,16 @@ using System.Linq.Expressions;
 
 namespace Core.Specifications
 {
-    public class BooksWithSeriesSpecifications: BaseSpecification<Book>
+    public class BooksWithSeriesAndAuthorsSpecifications: BaseSpecification<Book>
     {
-        public BooksWithSeriesSpecifications(BookSpecParam bookParams)
+        public BooksWithSeriesAndAuthorsSpecifications(BookSpecParam bookParams)
             : base(x => 
                     (string.IsNullOrEmpty(bookParams.Search) || x.Title.ToLower().Contains(bookParams.Search)) &&
-                    (!bookParams.SeriesId.HasValue || x.SeriesId == bookParams.SeriesId))
+                    (!bookParams.SeriesId.HasValue || x.SeriesId == bookParams.SeriesId) &&
+                    (!bookParams.AuthorId.HasValue || x.AuthorId == bookParams.AuthorId))
         {
             AddInclude(x => x.Series);
+            AddInclude(x => x.Author);
             AddOrderBy(x => x.Title);
             ApplyPaging(bookParams.PageSize * (bookParams.PageIndex - 1), 
                 bookParams.PageSize);
@@ -55,9 +57,10 @@ namespace Core.Specifications
                 }
             }
         }
-        public BooksWithSeriesSpecifications(Guid id): base(x => x.Id == id)
+        public BooksWithSeriesAndAuthorsSpecifications(Guid id): base(x => x.Id == id)
         {
             AddInclude(x => x.Series);
+            AddInclude(x => x.Author);
         }
     }
 }
