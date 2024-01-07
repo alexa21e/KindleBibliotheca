@@ -7,6 +7,7 @@ namespace Core.Specifications
     {
         public BooksWithSeriesSpecifications(BookSpecParam bookParams)
             : base(x => 
+                    (string.IsNullOrEmpty(bookParams.Search) || x.Title.ToLower().Contains(bookParams.Search)) &&
                     (!bookParams.SeriesId.HasValue || x.SeriesId == bookParams.SeriesId))
         {
             AddInclude(x => x.Series);
