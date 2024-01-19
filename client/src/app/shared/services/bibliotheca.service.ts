@@ -13,6 +13,6 @@ export class BibliothecaService{
     }
 
     getBooks(){
-        return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books');
+        return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books?pageSize=50');
     }
 }
