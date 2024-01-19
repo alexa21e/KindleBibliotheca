@@ -1,0 +1,11 @@
+<div class="card h-100 shadow-sm" *ngIf="book">
+   <img src="{{book.coverUrl}}" alt="{{book.title}}">
+    <div class="card-body d-flex flex-column">
+        <a href="" class="text-decoration-none">
+            <h6 class="text-uppercase">
+                {{book.title}}
+            </h6>
+            <span class="mb-2">{{book.rating}}</span>
+        </a>
+    </div>
+</div>
