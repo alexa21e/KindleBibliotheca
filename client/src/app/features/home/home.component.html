@@ -1,6 +1,42 @@
-<div class="container">
-    <ul>
-        <li class="list-unstyled" *ngFor="let book of books">
-            {{book.title}}</li>
-    </ul>
+<div class="container m-3">
+    <div class="row">
+        <section class="col-3">
+            <h5 class="text-warning ms-3">Sort</h5>
+            <select class="form-select mb-4">
+                <option>Alphabetical by title</option>
+                <option>Reverse alphabetical by title</option>
+                <option>Ascending by pages number</option>
+                <option>Descending by pages number</option>
+                <option>Ascending by publishing date</option>
+                <option>Descending by publishing date</option>
+                <option>Ascending by rating</option>
+                <option>Descending by rating</option>
+            </select>
+            <h5 class="text-warning ms-3">Series</h5>
+            <ul class="list-group">
+                <li class="list-group-item active">An active item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">A fourth item</li>
+                <li class="list-group-item">And a fifth one</li>
+            </ul>
+        </section>
+        <section class="col-9">
+            <div class="d-flex justify-content-between align-items center pb-2">
+                <header class="mt-2">
+                    <span>Showing <strong>10</strong> of <strong>18</strong> Results</span>
+                </header>
+                <div class="d-flex mt-2">
+                    <input type="text" placeholder="Search" class="form-control me-2">
+                    <button class="btn btn-outline-primary mx-2">Search</button>
+                    <button class="btn btn-outline-success mx-2">Reset</button>
+                </div>
+            </div>
+            <div class="row row-cols-3 g-3">
+                <div class="col" *ngFor="let book of books">
+                    <app-book [book]="book"></app-book>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
