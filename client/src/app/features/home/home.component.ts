@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Author } from 'src/app/shared/models/author';
+import { BiblParams } from 'src/app/shared/models/biblParams';
 import { Book } from 'src/app/shared/models/book';
 import { Series } from 'src/app/shared/models/series';
 import { BibliothecaService } from 'src/app/shared/services/bibliotheca.service';
@@ -13,17 +14,18 @@ export class HomeComponent implements OnInit{
   books: Book[] = [];
   series: Series[] = [];
   authors: Author[] = [];
+  params = new BiblParams();
 
   constructor( private bibliothecaService: BibliothecaService){}
   
   ngOnInit(): void {
-    this.getProducts();
+    this.getBooks();
     this.getAuthors();
     this.getSeries();
   }
 
-  getProducts(){
-    this.bibliothecaService.getBooks().subscribe({
+  getBooks(){
+    this.bibliothecaService.getBooks(this.params).subscribe({
       next: response => this.books = response.data,
       error: error => console.log(error)
     });
@@ -41,6 +43,24 @@ export class HomeComponent implements OnInit{
       next: response => this.authors = response,
       error: error => console.log(error)
     });
+  }
+
+  defaultSelected() {
+    this.params.authorId = '';
+    this.params.seriesId = '';
+    this.getBooks();
+  }
+
+  onAuthorSelected(authorId: string){
+    this.params.authorId = authorId;
+    this.params.seriesId = '';
+    this.getBooks();
+  }
+
+  onSeriesSelected(seriesId: string){
+    this.params.seriesId = seriesId;
+    this.params.authorId = '';
+    this.getBooks();
   }
 
 }

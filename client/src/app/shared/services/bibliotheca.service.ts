@@ -1,28 +1,34 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Pagination } from "../models/pagination";
 import { Book } from "../models/book";
 import { Series } from "../models/series";
 import { Author } from "../models/author";
+import { BiblParams } from "../models/biblParams";
 
 @Injectable({
-    providedIn: 'root' 
+    providedIn: 'root'
 })
 
-export class BibliothecaService{
+export class BibliothecaService {
     baseUrl = 'https://localhost:5001/api/'
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient) {
     }
 
-    getBooks(){
-        return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books?pageSize=50');
+    getBooks(biblParams: BiblParams) {
+        let params = new HttpParams();
+
+        if (biblParams.seriesId) params = params.append('seriesId', biblParams.seriesId);
+        if (biblParams.authorId) params = params.append('authorId', biblParams.authorId);
+
+        return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books', { params });
     }
 
-    getSeries(){
+    getSeries() {
         return this.http.get<Series[]>(this.baseUrl + 'books/series');
     }
 
-    getAuthors(){
+    getAuthors() {
         return this.http.get<Author[]>(this.baseUrl + 'books/authors');
     }
 }
