@@ -75,7 +75,7 @@ namespace KindleBibliotheca.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all authors")]
-        public async Task<ActionResult<List<Series>>> GetAuthors()
+        public async Task<ActionResult<List<Author>>> GetAuthors()
         {
             return Ok(await _authorsRepo.ListAllAsync());
         }
