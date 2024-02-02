@@ -15,6 +15,16 @@ export class HomeComponent implements OnInit{
   series: Series[] = [];
   authors: Author[] = [];
   params = new BiblParams();
+  sortOptions = [
+    { name: 'Title ascending', value: 'TitleAsc' },
+    { name: 'Title descending', value: 'TitleDesc' },
+    { name: 'Number of pages asecnding', value: 'PagesAsc' },
+    { name: 'Number of pages descending', value: 'PagesDesc' },
+    { name: 'Newest', value: 'DateDesc' },
+    { name: 'Oldest', value: 'DateAsc' },
+    { name: 'Rating ascending', value: 'RatingAsc' },
+    { name: 'Rating descending', value: 'RatingDesc' },
+  ];
 
   constructor( private bibliothecaService: BibliothecaService){}
   
@@ -60,6 +70,11 @@ export class HomeComponent implements OnInit{
   onSeriesSelected(seriesId: string){
     this.params.seriesId = seriesId;
     this.params.authorId = '';
+    this.getBooks();
+  }
+
+  onSortSelected(event: any){
+    this.params.sort = event.target.value;
     this.getBooks();
   }
 

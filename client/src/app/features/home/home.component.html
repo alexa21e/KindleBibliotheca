@@ -2,15 +2,10 @@
     <div class="row">
         <section class="col-3">
             <h5 class="text ms-3">Sort</h5>
-            <select class="form-select mb-4">
-                <option>Alphabetical by title</option>
-                <option>Reverse alphabetical by title</option>
-                <option>Ascending by pages number</option>
-                <option>Descending by pages number</option>
-                <option>Ascending by publishing date</option>
-                <option>Descending by publishing date</option>
-                <option>Ascending by rating</option>
-                <option>Descending by rating</option>
+            <select class="form-select mb-4" (change)="onSortSelected($event)">
+                <option *ngFor="let sort of sortOptions" 
+                [value] = "sort.value">
+                {{sort.name}}</option>
             </select>
             <h5 class="text ms-3">Series</h5>
             <ul class="list-group">
