@@ -85,8 +85,8 @@ export class HomeComponent implements OnInit{
   }
 
   onPageChanged(event: any){
-    if(this.params.pageIndex !== event.page){
-      this.params.pageIndex = event.page;
+    if(this.params.pageIndex !== event){
+      this.params.pageIndex = event;
       this.getBooks();
     }
   }
