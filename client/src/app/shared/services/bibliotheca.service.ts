@@ -20,7 +20,9 @@ export class BibliothecaService {
 
         if (biblParams.seriesId) params = params.append('seriesId', biblParams.seriesId);
         if (biblParams.authorId) params = params.append('authorId', biblParams.authorId);
-        if (biblParams.sort) params = params.append('sort', biblParams.sort);
+        params = params.append('sort', biblParams.sort);
+        params = params.append('pageIndex', biblParams.pageIndex);
+        params = params.append('pageSize', biblParams.pageSize);
 
         return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books', { params });
     }

@@ -3,6 +3,6 @@ export class BiblParams{
   authorId = '';
   sort = 'DateDesc'
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 6;
   search = '';
 }

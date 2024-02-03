@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit{
     { name: 'Rating ascending', value: 'RatingAsc' },
     { name: 'Rating descending', value: 'RatingDesc' },
   ];
+  totalCount = 0;
 
   constructor( private bibliothecaService: BibliothecaService){}
   
@@ -36,7 +37,12 @@ export class HomeComponent implements OnInit{
 
   getBooks(){
     this.bibliothecaService.getBooks(this.params).subscribe({
-      next: response => this.books = response.data,
+      next: response => {
+        this.books = response.data;
+        this.params.pageIndex = response.pageIndex;
+        this.params.pageSize = response.pageSize;
+        this.totalCount = response.count;
+      },
       error: error => console.log(error)
     });
   }
@@ -76,6 +82,13 @@ export class HomeComponent implements OnInit{
   onSortSelected(event: any){
     this.params.sort = event.target.value;
     this.getBooks();
+  }
+
+  onPageChanged(event: any){
+    if(this.params.pageIndex !== event.page){
+      this.params.pageIndex = event.page;
+      this.getBooks();
+    }
   }
 
 }

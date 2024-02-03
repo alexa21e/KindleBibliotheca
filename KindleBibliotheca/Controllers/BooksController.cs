@@ -39,7 +39,7 @@ namespace KindleBibliotheca.Controllers
         {
             var spec = new BooksWithSeriesAndAuthorsSpecifications(bookParams);
             var countSpec = new BooksWithFiltersForCountSpecification(bookParams);
-            var totalBooks = await _booksRepo.CountAsync(spec);
+            var totalBooks = await _booksRepo.CountAsync(countSpec);
             var books = await _booksRepo.ListAsync(spec);
             var data = _mapper
                 .Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books);

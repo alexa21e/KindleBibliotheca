@@ -27,3 +27,13 @@
     color: #854D1B;
     border-color: #854D18;
 }
+
+.my-pagination ::ng-deep .page-item.active .page-link{
+    color: #854D1B;
+    background-color: #D8B799;
+    border-color: #D8B799;
+}
+
+.my-pagination ::ng-deep .page-link{
+    color: #854D1B;
+}

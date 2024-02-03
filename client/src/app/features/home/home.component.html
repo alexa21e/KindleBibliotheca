@@ -3,35 +3,23 @@
         <section class="col-3">
             <h5 class="text ms-3">Sort</h5>
             <select class="form-select mb-4" (change)="onSortSelected($event)">
-                <option *ngFor="let sort of sortOptions" 
-                [value] = "sort.value">
-                {{sort.name}}</option>
+                <option *ngFor="let sort of sortOptions" [value]="sort.value">
+                    {{sort.name}}</option>
             </select>
             <h5 class="text ms-3">Series</h5>
             <ul class="list-group">
-                <li class="list-group-item"
-                [class.active]="params.seriesId === ''"
-                (click)="defaultSelected()"
-                >All</li>
-                <li class="list-group-item" 
-                *ngFor="let series of series"
-                [class.active]="series.id === params.seriesId"
-                [value]="series.id"
-                (click)="onSeriesSelected(series.id)">
-                {{series.name}}</li>
+                <li class="list-group-item" [class.active]="params.seriesId === ''" (click)="defaultSelected()">All</li>
+                <li class="list-group-item" *ngFor="let series of series" [class.active]="series.id === params.seriesId"
+                    [value]="series.id" (click)="onSeriesSelected(series.id)">
+                    {{series.name}}</li>
             </ul>
             <h5 class="text ms-3 mt-4">Authors</h5>
             <ul class="list-group">
-                <li class="list-group-item"
-                [class.active]="params.authorId === ''"
-                (click)="defaultSelected()"
-                >All</li>
-                <li class="list-group-item" 
-                *ngFor="let author of authors"
-                [class.active]="author.id === params.authorId"
-                [value]="author.id"
-                (click)="onAuthorSelected(author.id)">
-                {{author.name}}</li>
+                <li class="list-group-item" [class.active]="params.authorId === ''" (click)="defaultSelected()">All</li>
+                <li class="list-group-item" *ngFor="let author of authors"
+                    [class.active]="author.id === params.authorId" [value]="author.id"
+                    (click)="onAuthorSelected(author.id)">
+                    {{author.name}}</li>
             </ul>
         </section>
         <section class="col-9">
@@ -49,6 +37,13 @@
                 <div class="col" *ngFor="let book of books">
                     <app-book [book]="book"></app-book>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <pagination [boundaryLinks]="true" [totalItems]="totalCount" 
+                    [itemsPerPage]="params.pageSize" [maxSize]="10" 
+                    (pageChanged)="onPageChanged($event)" previousText="&lsaquo;" 
+                    nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" class="my-pagination">
+                </pagination>
             </div>
         </section>
     </div>
