@@ -70,12 +70,14 @@ export class HomeComponent implements OnInit{
 
   onAuthorSelected(authorId: string){
     this.params.authorId = authorId;
+    this.params.pageIndex = 1;
     this.params.seriesId = '';
     this.getBooks();
   }
 
   onSeriesSelected(seriesId: string){
     this.params.seriesId = seriesId;
+    this.params.pageIndex = 1;
     this.params.authorId = '';
     this.getBooks();
   }
@@ -94,6 +96,7 @@ export class HomeComponent implements OnInit{
 
   onSearch(){
     this.params.search = this.searchWord?.nativeElement.value;
+    this.params.pageIndex = 1;
     this.getBooks();
   }
 
