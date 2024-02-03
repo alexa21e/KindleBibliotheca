@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Author } from 'src/app/shared/models/author';
 import { BiblParams } from 'src/app/shared/models/biblParams';
 import { Book } from 'src/app/shared/models/book';
@@ -11,6 +11,7 @@ import { BibliothecaService } from 'src/app/shared/services/bibliotheca.service'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{
+  @ViewChild('search') searchWord?: ElementRef;
   books: Book[] = [];
   series: Series[] = [];
   authors: Author[] = [];
@@ -89,6 +90,11 @@ export class HomeComponent implements OnInit{
       this.params.pageIndex = event;
       this.getBooks();
     }
+  }
+
+  onSearch(){
+    this.params.search = this.searchWord?.nativeElement.value;
+    this.getBooks();
   }
 
 }

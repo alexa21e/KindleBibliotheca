@@ -23,6 +23,7 @@ export class BibliothecaService {
         params = params.append('sort', biblParams.sort);
         params = params.append('pageIndex', biblParams.pageIndex);
         params = params.append('pageSize', biblParams.pageSize);
+        if(biblParams.search) params = params.append('search', biblParams.search);
 
         return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books', { params });
     }
