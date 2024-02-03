@@ -39,7 +39,7 @@ namespace KindleBibliotheca.Controllers
         {
             var spec = new BooksWithSeriesAndAuthorsSpecifications(bookParams);
             var countSpec = new BooksWithFiltersForCountSpecification(bookParams);
-            var totalBooks = await _booksRepo.CountAsync(spec);
+            var totalBooks = await _booksRepo.CountAsync(countSpec);
             var books = await _booksRepo.ListAsync(spec);
             var data = _mapper
                 .Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books);
@@ -75,7 +75,7 @@ namespace KindleBibliotheca.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all authors")]
-        public async Task<ActionResult<List<Series>>> GetAuthors()
+        public async Task<ActionResult<List<Author>>> GetAuthors()
         {
             return Ok(await _authorsRepo.ListAllAsync());
         }
