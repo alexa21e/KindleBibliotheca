@@ -7,6 +7,7 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { LibraryComponent } from './library/library.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -21,7 +22,8 @@ import { LibraryComponent } from './library/library.component';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     HomeComponent

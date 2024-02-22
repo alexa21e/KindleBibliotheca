@@ -1,8 +1,8 @@
 <div class="card h-100 shadow-sm" *ngIf="book">
    <img src="{{book.coverUrl}}" alt="{{book.title}}">
     <div class="card-body d-flex flex-column">
-        <a href="" class="text-decoration-none">
-            <h6 class="text-uppercase">
+        <a class="text-decoration-none" routerLink="/book/{{book.id}}">
+            <h6 class="text-uppercase" >
                 {{book.title}}
             </h6>
             <div class="d-flex justify-content-start align-items-center rating">
