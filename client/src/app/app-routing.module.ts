@@ -12,6 +12,13 @@ const routes: Routes = [
   {path: 'library/:id', component: LibraryComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
+
+  //{
+    //path: 'manager',
+    //loadChildren: () =>
+      //import('./features/features.module').then((m) => m.FeaturesModule),
+  //},
+
   {path: '**', redirectTo:'', pathMatch: 'full'}
 ];
 
