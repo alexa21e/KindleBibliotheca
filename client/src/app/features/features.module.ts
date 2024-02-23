@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { LibraryComponent } from './library/library.component';
 import { RouterModule } from '@angular/router';
+import { RatingComponent } from './book-details/rating/rating.component';
 
 
 
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     BookDetailsComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    LibraryComponent
+    LibraryComponent,
+    RatingComponent
   ],
   imports: [
     CommonModule,

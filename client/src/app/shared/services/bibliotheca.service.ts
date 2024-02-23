@@ -28,6 +28,10 @@ export class BibliothecaService {
         return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books', { params });
     }
 
+    getBook(id: string){
+        return this.http.get<Book>(this.baseUrl + 'books/' + id);
+    }
+
     getSeries() {
         return this.http.get<Series[]>(this.baseUrl + 'books/series');
     }

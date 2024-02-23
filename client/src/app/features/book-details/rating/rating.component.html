@@ -1,0 +1,43 @@
+<div *ngIf="book">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div *ngIf="book.rating >= 1 && book.rating < 2">
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="details">{{book.rating}}</span>
+    </div>
+    <div *ngIf="book.rating >= 2 && book.rating < 3">
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="details">{{book.rating}}</span>
+    </div>
+    <div *ngIf="book.rating >= 3 && book.rating < 4">
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="details">{{book.rating}}</span>
+    </div>
+    <div *ngIf="book.rating >= 4 && book.rating < 5">
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star">&nbsp;</span>
+        <span class="details">{{book.rating}}</span>
+    </div>
+    <div *ngIf="book.rating == 5">
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="fa fa-star checked">&nbsp;</span>
+        <span class="details">{{book.rating}}</span>
+    </div>
+</div>
