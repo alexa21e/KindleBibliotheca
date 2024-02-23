@@ -1,3 +1,5 @@
+import { Genre } from "./genre"
+
 export interface Book {
     id: string
     title: string
@@ -5,7 +7,7 @@ export interface Book {
     author: string
     publishingDate: string
     rating: number
-    genre: number
+    genre: Genre
     publishingHouse: string
     seriesId?:string
     series?: string
