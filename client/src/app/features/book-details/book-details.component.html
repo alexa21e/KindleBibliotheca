@@ -1,1 +1,31 @@
-<p>book-details works!</p>
+<div class="row" *ngIf="book">
+    <div class="pr-img-ct pr-main-img-ct col-4">
+        <div class="text-center">
+            <img class="pr-img singleImageProduct rounded mt-4" data-pr="36455783" src="{{book.coverUrl}}"
+                alt="{{book.title}}" height="450px">
+        </div>
+    </div>
+    <div class="col-6 mt-5">
+        <h5 class="details" *ngIf="book.series && book.seriesPlace">
+            <a class="details" href="/">#{{book.seriesPlace}} in {{book.series}}</a>
+        </h5>
+        <h1 class="title bold">{{book.title}}</h1>
+        <h4 class="text">
+            <a class="details" href="/">{{book.author}}</a>
+        </h4>
+        <h4 class="text">
+            <a class="details" href="/">{{genreType[book.genre]}}</a>
+        </h4>
+        <h4 class="text">
+            <app-rating [book]="book"></app-rating>
+        </h4>
+        <br>
+        <h6 class="text">{{book.description}}</h6>
+        <br>
+        <h6 class="text">{{book.pagesNumber}} pages for Kindle edition</h6>
+        <br>
+        <h6 class="text">First published on {{book.publishingDate | date: 'MMMM d, yyyy'}} at
+            {{book.publishingHouse}}
+            Publishing House</h6>
+    </div>
+</div>
