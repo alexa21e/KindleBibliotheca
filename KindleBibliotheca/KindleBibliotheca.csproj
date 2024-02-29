@@ -28,8 +28,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\EPUB\" />
-    <Folder Include="wwwroot\PDF\" />
   </ItemGroup>
 
 </Project>
