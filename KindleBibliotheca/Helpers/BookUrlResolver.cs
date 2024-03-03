@@ -18,6 +18,10 @@ namespace KindleBibliotheca.Helpers
             {
                 return _config["ApiUrl"] + source.CoverUrl;
             }
+            else if (!string.IsNullOrEmpty(source.PDFUrl))
+            {
+                return _config["ApiUrl"] + source.PDFUrl;
+            }
 
             return null;
         }

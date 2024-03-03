@@ -57,6 +57,10 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
+                    b.Property<string>("PDFUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PagesNumber")
                         .HasColumnType("int");
 

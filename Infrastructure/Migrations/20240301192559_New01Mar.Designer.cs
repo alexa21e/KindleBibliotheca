@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BibliothecaContext))]
-    [Migration("20240107150728_Initial")]
-    partial class Initial
+    [Migration("20240301192559_New01Mar")]
+    partial class New01Mar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,10 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Genre")
                         .HasColumnType("int");
+
+                    b.Property<string>("PDFUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PagesNumber")
                         .HasColumnType("int");

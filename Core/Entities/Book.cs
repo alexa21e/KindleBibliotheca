@@ -17,5 +17,6 @@ namespace Core.Entities
         public int PagesNumber { get; set; }
         public string Description { get; set; } = string.Empty;
         public string CoverUrl { get; set; } = string.Empty;
+        public string PDFUrl { get; set; } = string.Empty;
     }
 }

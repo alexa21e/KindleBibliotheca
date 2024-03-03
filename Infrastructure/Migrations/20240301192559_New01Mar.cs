@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class New01Mar : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,7 +50,8 @@ namespace Infrastructure.Migrations
                     SeriesPlace = table.Column<int>(type: "int", nullable: true),
                     PagesNumber = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PDFUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
