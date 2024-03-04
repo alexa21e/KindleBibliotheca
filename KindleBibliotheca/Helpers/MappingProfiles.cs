@@ -13,6 +13,7 @@ namespace KindleBibliotheca.Helpers
                 .ForMember(d => d.Author, o => o.MapFrom(s => s.Author.Name))
                 .ForMember(d => d.CoverUrl, o => o.MapFrom<BookUrlResolver>())
                 .ForMember(d => d.PDFUrl, o => o.MapFrom<BookUrlResolver>());
+            CreateMap<BookToCreate, Book>();
         }
     }
 }

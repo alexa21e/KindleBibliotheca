@@ -1,6 +1,8 @@
-﻿using Core.Interfaces;
+﻿using System.Text.Json.Serialization;
+using Core.Interfaces;
 using Infrastructure.Data;
 using KindleBibliotheca.Errors;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +48,13 @@ namespace KindleBibliotheca.Extensions
                 {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
+            });
+
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
             });
 
             return services;

@@ -20,22 +20,26 @@ namespace Infrastructure.Data
         {
             return await _context.Set<T>().ToListAsync();
         }
-
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
-
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();
         }
-
         public async Task<int> CountAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).CountAsync();
         }
-
+        public void Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);

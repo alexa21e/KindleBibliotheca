@@ -79,5 +79,87 @@ namespace KindleBibliotheca.Controllers
         {
             return Ok(await _authorsRepo.ListAllAsync());
         }
+
+        [HttpPost("new")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Create a book")]
+        public async Task<ActionResult<Book>> CreateBook([FromBody] BookToCreate bookToCreate)
+        {
+            try
+            {
+                var authorSpec = new AuthorsWithBooksSpecification();
+                var authors = await _authorsRepo.ListAsync(authorSpec);
+                var existingAuthor = authors.FirstOrDefault(a => a.Name == bookToCreate.AuthorName);
+                var seriesSpec = new SeriesWithBooksSpecification();
+                var series = await _seriesRepo.ListAsync(seriesSpec);
+                var existingSeries = series.FirstOrDefault(s => s.Name == bookToCreate.SeriesName);
+                if (existingAuthor == null)
+                {
+                    Author author = new Author()
+                    {
+                        Id = new Guid(),
+                        Name = bookToCreate.AuthorName,
+                        Books = new List<Book>()
+                    };
+                    var book = new Book()
+                    {
+                        Title = bookToCreate.Title,
+                        Author = author,
+                        AuthorId = author.Id,
+                        CoverUrl = "",
+                        Description = bookToCreate.Description,
+                        Genre = bookToCreate.Genre,
+                        Id = new Guid(),
+                        PagesNumber = bookToCreate.PagesNumber,
+                        PDFUrl = "",
+                        PublishingDate = bookToCreate.PublishingDate,
+                        Rating = bookToCreate.Rating,
+                    };
+                    author.Books.Add(book);
+
+                    _booksRepo.Add(book);
+                    _authorsRepo.Add(author);
+
+                    await _booksRepo.SaveAsync();
+                    await _authorsRepo.SaveAsync();
+
+                    book.Author.Books = null;
+
+                    return Ok(book);
+                }
+                else
+                {
+                    var book = new Book()
+                    {
+                        Title = bookToCreate.Title,
+                        Author = existingAuthor,
+                        AuthorId = existingAuthor.Id,
+                        CoverUrl = "",
+                        Description = bookToCreate.Description,
+                        Genre = bookToCreate.Genre,
+                        Id = new Guid(),
+                        PagesNumber = bookToCreate.PagesNumber,
+                        PDFUrl = "",
+                        PublishingDate = bookToCreate.PublishingDate,
+                        Rating = bookToCreate.Rating,
+                    };
+                    existingAuthor.Books.Add(book);
+
+                    _booksRepo.Add(book);
+                    await _booksRepo.SaveAsync();
+
+                    book.Author.Books = null;
+
+                    return Ok(book);
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse(400, ex.Message));
+            }
+        }
     }
 }

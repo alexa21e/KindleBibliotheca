@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Infrastructure.Data;
 using KindleBibliotheca.Extensions;
 using KindleBibliotheca.Middleware;
@@ -6,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
