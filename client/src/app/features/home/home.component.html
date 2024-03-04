@@ -6,13 +6,13 @@
                 <option *ngFor="let sort of sortOptions" [value]="sort.value">
                     {{sort.name}}</option>
             </select>
-            <h5 class="text ms-3">Series</h5>
+            <!-- <h5 class="text ms-3">Series</h5>
             <ul class="list-group">
                 <li class="list-group-item" [class.active]="params.seriesId === ''" (click)="defaultSelected()">All</li>
                 <li class="list-group-item" *ngFor="let series of series" [class.active]="series.id === params.seriesId"
                     [value]="series.id" (click)="onSeriesSelected(series.id)">
                     {{series.name}}</li>
-            </ul>
+            </ul> -->
             <h5 class="text ms-3 mt-4">Authors</h5>
             <ul class="list-group">
                 <li class="list-group-item" [class.active]="params.authorId === ''" (click)="defaultSelected()">All</li>

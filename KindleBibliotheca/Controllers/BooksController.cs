@@ -10,6 +10,7 @@ using KindleBibliotheca.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace KindleBibliotheca.Controllers
@@ -80,7 +81,7 @@ namespace KindleBibliotheca.Controllers
             return Ok(await _authorsRepo.ListAllAsync());
         }
 
-        [HttpPost("new")]
+        [HttpPost("newbook"),DisableRequestSizeLimit]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Create a book")]
@@ -91,9 +92,6 @@ namespace KindleBibliotheca.Controllers
                 var authorSpec = new AuthorsWithBooksSpecification();
                 var authors = await _authorsRepo.ListAsync(authorSpec);
                 var existingAuthor = authors.FirstOrDefault(a => a.Name == bookToCreate.AuthorName);
-                var seriesSpec = new SeriesWithBooksSpecification();
-                var series = await _seriesRepo.ListAsync(seriesSpec);
-                var existingSeries = series.FirstOrDefault(s => s.Name == bookToCreate.SeriesName);
                 if (existingAuthor == null)
                 {
                     Author author = new Author()
@@ -109,7 +107,7 @@ namespace KindleBibliotheca.Controllers
                         AuthorId = author.Id,
                         CoverUrl = "",
                         Description = bookToCreate.Description,
-                        Genre = bookToCreate.Genre,
+                        //Genre = bookToCreate.Genre,
                         Id = new Guid(),
                         PagesNumber = bookToCreate.PagesNumber,
                         PDFUrl = "",
@@ -137,7 +135,7 @@ namespace KindleBibliotheca.Controllers
                         AuthorId = existingAuthor.Id,
                         CoverUrl = "",
                         Description = bookToCreate.Description,
-                        Genre = bookToCreate.Genre,
+                        //Genre = bookToCreate.Genre,
                         Id = new Guid(),
                         PagesNumber = bookToCreate.PagesNumber,
                         PDFUrl = "",

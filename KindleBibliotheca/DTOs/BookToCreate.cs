@@ -8,7 +8,7 @@ namespace KindleBibliotheca.DTOs
         public string AuthorName { get; set; }
         public DateTime PublishingDate { get; set; }
         public decimal Rating { get; set; }
-        public Genre Genre { get; set; }
+        //public Genre Genre { get; set; }
         public string PublishingHouse { get; set; } = string.Empty;
         public string? SeriesName { get; set; }
         public int? SeriesPlace { get; set; }

@@ -9,7 +9,7 @@ import { LibraryComponent } from './features/library/library.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'book/:id', component: BookDetailsComponent},
-  {path: 'library/:id', component: LibraryComponent},
+  {path: 'library', component: LibraryComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
 

@@ -39,4 +39,8 @@ export class BibliothecaService {
     getAuthors() {
         return this.http.get<Author[]>(this.baseUrl + 'books/authors');
     }
+
+    createBook(values: any){
+        return this.http.post<Book>(this.baseUrl + 'books/newbook', values);
+    }
 }

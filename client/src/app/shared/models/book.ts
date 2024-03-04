@@ -15,4 +15,5 @@ export interface Book {
     pagesNumber: number
     description: string
     coverUrl: string
+    pdfUrl: string
   }
