@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Book } from 'src/app/shared/models/book';
@@ -21,7 +22,41 @@ export class LibraryComponent {
     // seriesPlace: new FormControl(''),
     pagesNumber: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    coverUrl: new FormControl('', [Validators.required]),
   });
+
+  selectedFile: File | null = null;
+
+  constructor(private http: HttpClient,
+    private bibliothecaService: BibliothecaService) {}
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadCover() {
+    if (!this.selectedFile) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.http.post<any>('https://localhost:5001/api/upload/cover', formData).subscribe(
+      (response) => {
+        // Assuming the server responds with the file path
+        const coverUrl = response.coverUrl;
+        // Here, you would save the coverUrl to your book entity
+        this.bookForm.get('coverUrl')?.setValue(coverUrl);
+        //"coverUrl": "https://localhost:5001/Uploads/61306ba4-5aa8-4914-8f67-1c78ef5f899e.jpg"
+        //"coverUrl": "https://localhost:5001/images/ahsfab.jpg",
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+      }
+    );
+  }
+  
   // genreOptions = [
   //   { name: 'Fantasy', value: 0 },
   //   { name: 'Fiction', value: 1 },
@@ -36,9 +71,6 @@ export class LibraryComponent {
   visible: boolean = false;
   response!: { coverImagePath: ''; };
 
-  constructor(private bibliothecaService: BibliothecaService){
-
-  }
 
   showDialog() {
     this.visible = true;
@@ -52,12 +84,10 @@ export class LibraryComponent {
     this.bibliothecaService.createBook(this.bookForm.value).subscribe({
       next: (response) => {
         console.log('Book created successfully!', response);
-        // Optionally, you can reset the form here
         this.bookForm.reset();
       },
       error: (error) => {
         console.error('Error creating book:', error);
-        // Handle error message/display error to the user
       },
     });
 }

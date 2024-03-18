@@ -10,37 +10,39 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        [HttpPost, DisableRequestSizeLimit]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Uploads image")]
+        [HttpPost("cover")]
         public async Task<IActionResult> UploadCover()
         {
             try
             {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
+                var file = Request.Form.Files[0];
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("No file uploaded");
+                }
+
+                // Define the folder path where you want to save the uploaded files
                 var folderName = Path.Combine("wwwroot", "images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                if (file.Length > 0)
+
+                // Generate a unique filename for the uploaded file
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(pathToSave, fileName);
+
+                // Save the file to the server
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim().ToString();
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    var coverImagePath = Path.Combine(folderName, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                    return Ok(new { coverImagePath });
+                    await file.CopyToAsync(stream);
                 }
-                else
-                {
-                    return BadRequest();
-                }
+
+                // Return the relative file path
+                var relativeFilePath = $"images/{fileName}";
+
+                return Ok(new { coverUrl = relativeFilePath });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
     }

@@ -10,7 +10,6 @@ import { BibliothecaService } from 'src/app/shared/services/bibliotheca.service'
   styleUrls: ['./book-details.component.scss']
 })
 export class BookDetailsComponent implements OnInit{
-
   book?: Book;
   genreType= Genre;
 
@@ -30,4 +29,8 @@ export class BookDetailsComponent implements OnInit{
       });
     }
   }
+
+  uploadCover() {
+    throw new Error('Method not implemented.');
+    }
 }

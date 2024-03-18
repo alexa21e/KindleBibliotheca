@@ -27,5 +27,10 @@
         <h6 class="text">First published on {{book.publishingDate | date: 'MMMM d, yyyy'}} at
             {{book.publishingHouse}}
             Publishing House</h6>
+        <br>
+        <div *ngIf="!book.coverUrl">
+            <button (click)="uploadCover()">Upload Cover</button>
+          </div>
+          
     </div>
 </div>
