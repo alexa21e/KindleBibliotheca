@@ -38,7 +38,7 @@
                         <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="image/*"
                             style="display: none;">
                     </label>
-                    <button (click)="uploadCover()" class="btn pop">Upload</button>
+                    <button (click)="uploadCover(book.id)" class="btn pop">Upload</button>
                 </div>
             </p-dialog>
         </div>

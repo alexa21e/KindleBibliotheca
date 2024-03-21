@@ -39,7 +39,7 @@ export class BookDetailsComponent implements OnInit{
     this.selectedFile = event.target.files[0];
   }
 
-  uploadCover() {
+  uploadCover(id: string) {
     if (!this.selectedFile) {
       return;
     }
@@ -47,7 +47,7 @@ export class BookDetailsComponent implements OnInit{
     const formData = new FormData();
     formData.append('file', this.selectedFile);
 
-    this.bibliothecaService.uploadCover(formData).subscribe(
+    this.bibliothecaService.uploadCover(id, formData).subscribe(
       (next) => {
       },
       (error) => {

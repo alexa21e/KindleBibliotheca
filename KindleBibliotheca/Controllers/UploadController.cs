@@ -1,4 +1,8 @@
-﻿using KindleBibliotheca.Errors;
+﻿using AutoMapper;
+using Core.Entities;
+using Core.Interfaces;
+using Core.Specifications;
+using KindleBibliotheca.Errors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -10,9 +14,19 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        [HttpPost("cover")]
-        public async Task<IActionResult> UploadCover()
+        private readonly IGenericRepository<Book> _booksRepo;
+        private readonly IMapper _mapper;
+
+        public UploadController(IGenericRepository<Book> booksRepo, IMapper mapper)
         {
+            _mapper = mapper;
+            _booksRepo = booksRepo;
+        }
+        [HttpPost("cover/{id}")]
+        public async Task<IActionResult> UploadCover(Guid id)
+        {
+            var spec = new BooksWithSeriesAndAuthorsSpecifications(id);
+            var book = await _booksRepo.GetEntityWithSpec(spec);
             try
             {
                 var file = Request.Form.Files[0];
@@ -21,28 +35,27 @@ namespace KindleBibliotheca.Controllers
                     return BadRequest("No file uploaded");
                 }
 
-                // Define the folder path where you want to save the uploaded files
                 var folderName = Path.Combine("wwwroot", "images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-                // Generate a unique filename for the uploaded file
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 var filePath = Path.Combine(pathToSave, fileName);
 
-                // Save the file to the server
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
 
-                // Return the relative file path
-                var relativeFilePath = $"images/{fileName}";
+                book.CoverUrl = Path.Combine("images", fileName);
+                _booksRepo.Update(book);
 
-                return Ok(new { coverUrl = relativeFilePath });
+                await _booksRepo.SaveAsync();
+
+                return Ok(book);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error");
+                return BadRequest(new ApiResponse(400, ex.Message));
             }
         }
     }
