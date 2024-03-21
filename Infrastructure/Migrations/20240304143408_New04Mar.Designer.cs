@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BibliothecaContext))]
-    [Migration("20240107150728_Initial")]
-    partial class Initial
+    [Migration("20240304143408_New04Mar")]
+    partial class New04Mar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,10 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Genre")
                         .HasColumnType("int");
+
+                    b.Property<string>("PDFUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PagesNumber")
                         .HasColumnType("int");
@@ -111,18 +115,28 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Book", b =>
                 {
                     b.HasOne("Core.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Series", "Series")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("SeriesId");
 
                     b.Navigation("Author");
 
                     b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("Core.Entities.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Core.Entities.Series", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

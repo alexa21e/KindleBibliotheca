@@ -2,16 +2,46 @@
     display: grid;
     margin-bottom: 4rem;
 }
-.text{
+
+.text {
     color: #854D1B;
 }
-.title{
+
+.title {
     font-family: "Temeraire", Sans-sarif;
     font-size: 55px;
     color: #854D1B;
 }
-.details{ 
+
+.details {
     font-family: "Temeraire", Sans-sarif;
     font-size: 28px;
     color: #854D1B;
+}
+
+.btn {
+    color: #854D18;
+    background-color: #D8B799;
+}
+
+.custom-dialog-content {
+    color: #854D1B;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+    color: #854D1B;
+}
+
+.custom-file-upload {
+    color: #854D18;
+    background-color: #D8B799;
+    border: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    color: inherit !important;
 }

@@ -10,16 +10,17 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(b => b.Id).IsRequired();
             builder.Property(b => b.Title).IsRequired().HasMaxLength(100);
-            builder.HasOne(b => b.Author).WithMany()
-                .HasForeignKey(a => a.AuthorId);
+            //builder.HasOne(b => b.Author).WithMany()
+            //    .HasForeignKey(a => a.AuthorId);
+
             builder.Property(b => b.CoverUrl).IsRequired();
             builder.Property(b => b.Genre).IsRequired();
             builder.Property(b => b.PagesNumber).IsRequired();
             builder.Property(b => b.PublishingHouse).IsRequired();
             builder.Property(b => b.Rating).IsRequired();
             builder.Property(b => b.Rating).HasColumnType("decimal(18,2)");
-            builder.HasOne(b => b.Series).WithMany()
-                .HasForeignKey(s => s.SeriesId);
+            //builder.HasOne(b => b.Series).WithMany()
+            //    .HasForeignKey(s => s.SeriesId);
         }
     }
 }

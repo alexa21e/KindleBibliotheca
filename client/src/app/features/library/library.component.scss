@@ -1,0 +1,22 @@
+.card{
+    border: none;
+}
+
+.btn{
+    color: #854D1B;
+    background-color:#D8B799;
+}
+
+.field{
+    color: #854D1B;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title{
+    color:#854D1B;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+    color: inherit !important;
+}
+
+

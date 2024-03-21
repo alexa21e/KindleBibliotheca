@@ -9,8 +9,10 @@ import { ServerErrorComponent } from './server-error/server-error.component';
 import { LibraryComponent } from './library/library.component';
 import { RouterModule } from '@angular/router';
 import { RatingComponent } from './book-details/rating/rating.component';
-
-
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,17 @@ import { RatingComponent } from './book-details/rating/rating.component';
     NotFoundComponent,
     ServerErrorComponent,
     LibraryComponent,
-    RatingComponent
+    RatingComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
   ],
   exports: [
     HomeComponent
