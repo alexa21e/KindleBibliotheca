@@ -4,11 +4,11 @@ using KindleBibliotheca.DTOs;
 
 namespace KindleBibliotheca.Helpers
 {
-    public class BookUrlResolver : IValueResolver<Book, BookToReturn, string>
+    public class CoverUrlResolver : IValueResolver<Book, BookToReturn, string>
     {
         private readonly IConfiguration _config;
 
-        public BookUrlResolver(IConfiguration config)
+        public CoverUrlResolver(IConfiguration config)
         {
             _config = config;
         }
@@ -17,10 +17,6 @@ namespace KindleBibliotheca.Helpers
             if (!string.IsNullOrEmpty(source.CoverUrl))
             {
                 return _config["ApiUrl"] + source.CoverUrl;
-            }
-            else if (!string.IsNullOrEmpty(source.PDFUrl))
-            {
-                return _config["ApiUrl"] + source.PDFUrl;
             }
 
             return null;

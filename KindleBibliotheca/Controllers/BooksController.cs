@@ -60,6 +60,7 @@ namespace KindleBibliotheca.Controllers
             {
                 return NotFound(new ApiResponse(404));
             }
+            var returnval = _mapper.Map<Book, BookToReturn>(book);
             return _mapper.Map<Book, BookToReturn>(book);
         }
 

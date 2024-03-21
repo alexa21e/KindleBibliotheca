@@ -47,4 +47,8 @@ export class BibliothecaService {
     uploadCover(id: string, file: any){
         return this.http.post(this.baseUrl + 'upload/cover/' + id, file);
     }
+
+    uploadPDF(id: string, file: any){
+        return this.http.post(this.baseUrl + 'upload/pdf/' + id, file);
+    }
 }

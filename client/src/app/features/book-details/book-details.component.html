@@ -29,8 +29,8 @@
             Publishing House</h6>
         <br>
         <div *ngIf="!book.coverUrl">
-            <button (click)="showDialog()" class="btn">Upload Cover</button>
-            <p-dialog header="Upload cover" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }"
+            <button (click)="showCoverDialog()" class="btn">Upload Cover</button>
+            <p-dialog header="Upload cover" [(visible)]="isUploadCoverDialogVisible" [modal]="true" [style]="{ width: '30vw' }"
                 [draggable]="false" [resizable]="false">
                 <div class="custom-dialog-content">
                     <label for="fileUpload" class="custom-file-upload">
@@ -41,6 +41,24 @@
                     <button (click)="uploadCover(book.id)" class="btn pop">Upload</button>
                 </div>
             </p-dialog>
+        </div>
+        <br>
+        <div *ngIf="!book.pdfUrl">
+            <button (click)="showPDFDialog()" class="btn">Upload PDF</button>
+            <p-dialog header="Upload PDF" [(visible)]="isUploadPDFDialogVisible" [modal]="true" [style]="{ width: '30vw' }"
+                [draggable]="false" [resizable]="false">
+                <div class="custom-dialog-content">
+                    <label for="fileUpload" class="custom-file-upload">
+                        Choose File
+                        <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="pdf/*"
+                            style="display: none;">
+                    </label>
+                    <button (click)="uploadPDF(book.id)" class="btn pop">Upload</button>
+                </div>
+            </p-dialog>
+        </div>
+        <div *ngIf="book.pdfUrl">
+            <button (click)="downloadPDF()" class="btn">Download PDF</button>
         </div>
     </div>
 </div>

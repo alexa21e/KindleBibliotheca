@@ -10,24 +10,25 @@ import { BibliothecaService } from 'src/app/shared/services/bibliotheca.service'
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit{
+export class BookDetailsComponent implements OnInit {
   book?: Book;
-  genreType= Genre;
+  genreType = Genre;
 
   selectedFile: File | null = null;
-  visible: boolean = false;
+  isUploadCoverDialogVisible: boolean = false;
+  isUploadPDFDialogVisible: boolean = false;
 
-  constructor( private bibliothecaService: BibliothecaService,
-               private activatedRoute: ActivatedRoute,
-               private http: HttpClient,){}
+  constructor(private bibliothecaService: BibliothecaService,
+    private activatedRoute: ActivatedRoute,
+    private http: HttpClient,) { }
 
   ngOnInit(): void {
     this.loadBook();
   }
 
-  loadBook(){
+  loadBook() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    if(id){
+    if (id) {
       this.bibliothecaService.getBook(id).subscribe({
         next: response => this.book = response,
         error: error => console.log(error)
@@ -54,14 +55,46 @@ export class BookDetailsComponent implements OnInit{
         console.error('Error uploading file:', error);
       }
     );
-    this.hideDialog();
+    this.hideCoverDialog();
+    this.loadBook
   }
 
-  showDialog() {
-    this.visible = true;
+  uploadPDF(id: string) {
+    if (!this.selectedFile) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+
+    this.bibliothecaService.uploadPDF(id, formData).subscribe(
+      (next) => {
+      },
+      (error) => {
+        console.error('Error uploading file:', error);
+      }
+    );
+    this.hidePDFDialog();
+    this.loadBook();
   }
 
-  hideDialog() {
-    this.visible = false;
+  downloadPDF() {
+    throw new Error('Method not implemented.');
+  }
+
+  showCoverDialog() {
+    this.isUploadCoverDialogVisible = true;
+  }
+
+  showPDFDialog() {
+    this.isUploadPDFDialogVisible = true;
+  }
+
+  hideCoverDialog() {
+    this.isUploadCoverDialogVisible = false;
+  }
+
+  hidePDFDialog() {
+    this.isUploadPDFDialogVisible = false;
   }
 }
