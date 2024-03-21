@@ -43,4 +43,8 @@ export class BibliothecaService {
     createBook(values: any){
         return this.http.post<Book>(this.baseUrl + 'books/newbook', values);
     }
+
+    uploadCover(file: any){
+        return this.http.post(this.baseUrl + 'upload/cover', file);
+    }
 }

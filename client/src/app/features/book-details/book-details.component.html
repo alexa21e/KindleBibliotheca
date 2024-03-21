@@ -29,8 +29,18 @@
             Publishing House</h6>
         <br>
         <div *ngIf="!book.coverUrl">
-            <button (click)="uploadCover()">Upload Cover</button>
-          </div>
-          
+            <button (click)="showDialog()" class="btn">Upload Cover</button>
+            <p-dialog header="Upload cover" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }"
+                [draggable]="false" [resizable]="false">
+                <div class="custom-dialog-content">
+                    <label for="fileUpload" class="custom-file-upload">
+                        Choose File
+                        <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept="image/*"
+                            style="display: none;">
+                    </label>
+                    <button (click)="uploadCover()" class="btn pop">Upload</button>
+                </div>
+            </p-dialog>
+        </div>
     </div>
 </div>

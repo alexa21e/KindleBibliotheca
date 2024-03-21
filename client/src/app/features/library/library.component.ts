@@ -10,6 +10,7 @@ import { BibliothecaService } from 'src/app/shared/services/bibliotheca.service'
   styleUrls: ['./library.component.scss']
 })
 export class LibraryComponent {
+  visible: boolean = false;
   book?: Book;
   bookForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -25,60 +26,7 @@ export class LibraryComponent {
     coverUrl: new FormControl('', [Validators.required]),
   });
 
-  selectedFile: File | null = null;
-
-  constructor(private http: HttpClient,
-    private bibliothecaService: BibliothecaService) {}
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  uploadCover() {
-    if (!this.selectedFile) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-
-    this.http.post<any>('https://localhost:5001/api/upload/cover', formData).subscribe(
-      (response) => {
-        // Assuming the server responds with the file path
-        const coverUrl = response.coverUrl;
-        // Here, you would save the coverUrl to your book entity
-        this.bookForm.get('coverUrl')?.setValue(coverUrl);
-        //"coverUrl": "https://localhost:5001/Uploads/61306ba4-5aa8-4914-8f67-1c78ef5f899e.jpg"
-        //"coverUrl": "https://localhost:5001/images/ahsfab.jpg",
-      },
-      (error) => {
-        console.error('Error uploading file:', error);
-      }
-    );
-  }
-  
-  // genreOptions = [
-  //   { name: 'Fantasy', value: 0 },
-  //   { name: 'Fiction', value: 1 },
-  //   { name: 'Horror', value: 2 },
-  //   { name: 'Non-Fiction', value: 3 },
-  //   { name: 'Psychology', value: 4 },
-  //   { name: 'Romance', value: 5 },
-  //   { name: 'Self Development', value: 6 },
-  //   { name: 'Thriller', value: 7 },
-  //   { name: 'Young Adult', value: 8 },
-  // ];
-  visible: boolean = false;
-  response!: { coverImagePath: ''; };
-
-
-  showDialog() {
-    this.visible = true;
-  }
-
-  uploadFinished = (event: { coverImagePath: ""; }) => { 
-    this.response = event; 
-  }
+  constructor(private bibliothecaService: BibliothecaService) { }
 
   onCreate() {
     this.bibliothecaService.createBook(this.bookForm.value).subscribe({
@@ -90,5 +38,15 @@ export class LibraryComponent {
         console.error('Error creating book:', error);
       },
     });
+    this.hideDialog();
+  }
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  hideDialog() {
+    this.visible = false;
+  }
 }
-}
+

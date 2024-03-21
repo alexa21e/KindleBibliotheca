@@ -13,7 +13,6 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { UploadComponent } from './upload/upload.component';
     ServerErrorComponent,
     LibraryComponent,
     RatingComponent,
-    UploadComponent
   ],
   imports: [
     CommonModule,
