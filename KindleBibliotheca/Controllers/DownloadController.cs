@@ -47,7 +47,7 @@ namespace KindleBibliotheca.Controllers
 
             var filePath = Path.Combine(environment.WebRootPath, book.PDFUrl);
 
-            return File(System.IO.File.ReadAllBytes(filePath), "pdf", System.IO.Path.GetFileName(filePath));
+            return File(System.IO.File.ReadAllBytes(filePath), "application/pdf", System.IO.Path.GetFileName(filePath));
         }
     }
 }
