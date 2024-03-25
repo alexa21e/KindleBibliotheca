@@ -90,7 +90,7 @@ namespace KindleBibliotheca.Controllers
                     await file.CopyToAsync(stream);
                 }
 
-                book.PDFUrl = Path.Combine("books", fileName);
+                book.PDFUrl = Path.Combine("PDF", fileName);
                 _booksRepo.Update(book);
 
                 await _booksRepo.SaveAsync();

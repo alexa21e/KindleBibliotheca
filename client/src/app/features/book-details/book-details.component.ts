@@ -78,8 +78,16 @@ export class BookDetailsComponent implements OnInit {
     this.loadBook();
   }
 
-  downloadPDF() {
-    throw new Error('Method not implemented.');
+  downloadPDF(id: string) {
+    this.bibliothecaService.downloadPDF(id).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        console.error('Error downloading file:', error);
+      }
+    );
   }
 
   showCoverDialog() {
