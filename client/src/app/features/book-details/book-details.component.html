@@ -58,7 +58,7 @@
             </p-dialog>
         </div>
         <div *ngIf="book.pdfUrl">
-            <button (click)="downloadPDF()" class="btn">Download PDF</button>
+            <button (click)="downloadPDF(book.id)" class="btn">Download PDF</button>
         </div>
     </div>
 </div>

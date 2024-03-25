@@ -51,4 +51,8 @@ export class BibliothecaService {
     uploadPDF(id: string, file: any){
         return this.http.post(this.baseUrl + 'upload/pdf/' + id, file);
     }
+
+    downloadPDF(id: string){
+        return this.http.get(this.baseUrl + 'download/pdf/' + id, { responseType: 'blob' });
+    }
 }
