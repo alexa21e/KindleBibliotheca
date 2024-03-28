@@ -6,7 +6,7 @@ namespace Core.Interfaces
 {
     public interface IBooksService
     {
-        Task<IReadOnlyList<Book>> GetBooks(BookSpecParam bookParams);
+        Task<IReadOnlyList<BookToReturn>> GetBooks(BookSpecParam bookParams);
         Task<int> GetBooksCount(BookSpecParam bookParams);
         Task<BookToReturn> GetBook(Guid id);
         Task<Book> CreateBook(BookToCreate bookToCreate);

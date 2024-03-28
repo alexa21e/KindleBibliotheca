@@ -17,10 +17,12 @@ namespace Infrastructure.Services
             _authorsRepo = authorsRepo;
             _mapper = mapper;
         }
-        public async Task<IReadOnlyList<Book>> GetBooks(BookSpecParam bookParams)
+        public async Task<IReadOnlyList<BookToReturn>> GetBooks(BookSpecParam bookParams)
         {
             var spec = new BooksWithSeriesAndAuthorsSpecifications(bookParams);
-            return await _booksRepo.GetBooksWithSpecAsync(spec);
+            var books = await _booksRepo.GetBooksWithSpecAsync(spec);
+            return _mapper
+                .Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books);
         }
         public async Task<int> GetBooksCount(BookSpecParam bookParams)
         {
