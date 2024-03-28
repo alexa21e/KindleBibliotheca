@@ -19,7 +19,7 @@ namespace KindleBibliotheca.Controllers
             _authorsRepo = authorsRepo;
         }
 
-        [HttpGet("authors")]
+        [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all authors")]

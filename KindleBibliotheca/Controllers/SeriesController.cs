@@ -17,7 +17,7 @@ namespace KindleBibliotheca.Controllers
             _seriesRepo = seriesRepo;
             _mapper = mapper;
         }
-        [HttpGet("series")]
+        [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Return list of all series")]
