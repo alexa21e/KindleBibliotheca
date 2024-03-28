@@ -14,10 +14,10 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        private readonly IGenericRepository<Book> _booksRepo;
+        private readonly IBookRepository _booksRepo;
         private readonly IMapper _mapper;
 
-        public UploadController(IGenericRepository<Book> booksRepo, IMapper mapper)
+        public UploadController(IBookRepository booksRepo, IMapper mapper)
         {
             _mapper = mapper;
             _booksRepo = booksRepo;

@@ -25,6 +25,24 @@ namespace Infrastructure.Repositories
         {
             return await ApplySpecification(spec).ToListAsync();
         }
+
+        public async Task<Author> GetAuthorByNameAsync(string authorName)
+        {
+            return await _context.Authors.FirstAsync(a => a.Name == authorName);
+        }
+        public void Add(Author author)
+        {
+            _context.Set<Author>().Add(author);
+        }
+        public void Update(Author author)
+        {
+            _context.Set<Author>().Attach(author);
+            _context.Entry(author).State = EntityState.Modified;
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
         private IQueryable<Author> ApplySpecification(ISpecification<Author> spec)
         {
             return SpecificationEvaluator<Author>.GetQuery(_context.Set<Author>().AsQueryable(), spec);

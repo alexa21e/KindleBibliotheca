@@ -38,6 +38,19 @@ namespace Infrastructure.Repositories
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
+        public void Add(Book book)
+        {
+            _context.Set<Book>().Add(book);
+        }
+        public void Update(Book book)
+        {
+            _context.Set<Book>().Attach(book);
+            _context.Entry(book).State = EntityState.Modified;
+        }
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
         private IQueryable<Book> ApplySpecification(ISpecification<Book> spec)
         {
             return SpecificationEvaluator<Book>.GetQuery(_context.Set<Book>().AsQueryable(), spec);

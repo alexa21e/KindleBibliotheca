@@ -17,17 +17,15 @@ namespace KindleBibliotheca.Controllers
 {
     public class BooksController : BaseAPIController
     {
-        private readonly IGenericRepository<Book> _booksRepo;
-        private readonly IGenericRepository<Series> _seriesRepo;
-        private readonly IGenericRepository<Author> _authorsRepo;
+        private readonly IBookRepository _booksRepo;
+        private readonly IAuthorRepository _authorsRepo;
         private readonly IMapper _mapper;
 
-        public BooksController(IGenericRepository<Book> booksRepo, IGenericRepository<Series> seriesRepo,
-            IGenericRepository<Author> authorsRepo, IMapper mapper)
+        public BooksController(IBookRepository booksRepo, 
+            IAuthorRepository authorsRepo, IMapper mapper)
         {
             _mapper = mapper;
             _booksRepo = booksRepo;
-            _seriesRepo = seriesRepo;
             _authorsRepo  = authorsRepo;
         }
 
@@ -41,7 +39,7 @@ namespace KindleBibliotheca.Controllers
             var spec = new BooksWithSeriesAndAuthorsSpecifications(bookParams);
             var countSpec = new BooksWithFiltersForCountSpecification(bookParams);
             var totalBooks = await _booksRepo.CountAsync(countSpec);
-            var books = await _booksRepo.ListAsync(spec);
+            var books = await _booksRepo.GetBooksWithSpecAsync(spec);
             var data = _mapper
                 .Map<IReadOnlyList<Book>, IReadOnlyList<BookToReturn>>(books);
             return Ok(new Pagination<BookToReturn>(bookParams.PageIndex,
@@ -60,29 +58,10 @@ namespace KindleBibliotheca.Controllers
             {
                 return NotFound(new ApiResponse(404));
             }
-            var returnval = _mapper.Map<Book, BookToReturn>(book);
             return _mapper.Map<Book, BookToReturn>(book);
         }
 
-        [HttpGet("series")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Return list of all series")]
-        public async Task<ActionResult<List<Series>>> GetSeries()
-        {
-            return Ok(await _seriesRepo.ListAllAsync());
-        }
-
-        [HttpGet("authors")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Return list of all authors")]
-        public async Task<ActionResult<List<Author>>> GetAuthors()
-        {
-            return Ok(await _authorsRepo.ListAllAsync());
-        }
-
-        [HttpPost("newbook"),DisableRequestSizeLimit]
+        [HttpPost("new"),DisableRequestSizeLimit]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         [SwaggerOperation(Summary = "Create a book")]
@@ -91,7 +70,7 @@ namespace KindleBibliotheca.Controllers
             try
             {
                 var authorSpec = new AuthorsWithBooksSpecification();
-                var authors = await _authorsRepo.ListAsync(authorSpec);
+                var authors = await _authorsRepo.GetAuthorsWithSpecAsync(authorSpec);
                 var existingAuthor = authors.FirstOrDefault(a => a.Name == bookToCreate.AuthorName);
                 if (existingAuthor == null)
                 {
@@ -108,7 +87,7 @@ namespace KindleBibliotheca.Controllers
                         AuthorId = author.Id,
                         CoverUrl = "",
                         Description = bookToCreate.Description,
-                        //Genre = bookToCreate.Genre,
+                        Genre = bookToCreate.Genre,
                         Id = new Guid(),
                         PagesNumber = bookToCreate.PagesNumber,
                         PDFUrl = "",
@@ -136,7 +115,7 @@ namespace KindleBibliotheca.Controllers
                         AuthorId = existingAuthor.Id,
                         CoverUrl = "",
                         Description = bookToCreate.Description,
-                        //Genre = bookToCreate.Genre,
+                        Genre = bookToCreate.Genre,
                         Id = new Guid(),
                         PagesNumber = bookToCreate.PagesNumber,
                         PDFUrl = "",
@@ -146,7 +125,7 @@ namespace KindleBibliotheca.Controllers
                     existingAuthor.Books.Add(book);
 
                     _booksRepo.Add(book);
-                    await _booksRepo.SaveAsync();
+                   await _booksRepo.SaveAsync();
 
                     book.Author.Books = null;
 
