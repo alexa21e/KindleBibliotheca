@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Repositories
 {
     public class BookRepository : IBookRepository
     {
@@ -18,32 +20,27 @@ namespace Infrastructure.Data
                 .Include(b => b.Series)
                 .FirstAsync(b => b.Id == id);
         }
-
         public async Task<IReadOnlyList<Book>> GetBooksAsync()
         {
             return await _context.Books
                 .Include(b => b.Series)
                 .ToListAsync();
         }
-
-        public async Task<Series> GetSeriesByIdAsync(Guid id)
+        public async Task<int> CountAsync(ISpecification<Book> spec)
         {
-            return await _context.Series.FirstAsync(s => s.Id == id);
+            return await ApplySpecification(spec).CountAsync();
         }
-
-        public async Task<IReadOnlyList<Series>> GetSeriesAsync()
+        public async Task<IReadOnlyList<Book>> GetBooksWithSpecAsync(ISpecification<Book> spec)
         {
-            return await _context.Series.ToListAsync();
+            return await ApplySpecification(spec).ToListAsync();
         }
-
-        public async Task<Author> GetAuthorByIdAsync(Guid id)
+        public async Task<Book> GetEntityWithSpec(ISpecification<Book> spec)
         {
-            return await _context.Authors.FirstAsync(a => a.Id == id);
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
         }
-
-        public async Task<IReadOnlyList<Author>> GetAuthorsAsync()
+        private IQueryable<Book> ApplySpecification(ISpecification<Book> spec)
         {
-            return await _context.Authors.ToListAsync();
+            return SpecificationEvaluator<Book>.GetQuery(_context.Set<Book>().AsQueryable(), spec);
         }
     }
 }
