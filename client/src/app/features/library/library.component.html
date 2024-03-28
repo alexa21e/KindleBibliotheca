@@ -29,7 +29,7 @@
             min="0" max="5"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mx-2" />
         </div>
-        <!-- <div class="field"> 
+        <div class="field"> 
             <label for="genre" class="block text-gray-700 font-medium mb-2">Genre</label> 
             <select [formControl]="bookForm.controls['genre']" id="genre" 
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mx-2"> 
@@ -37,7 +37,7 @@
             <option *ngFor="let genre of genreOptions" [value]=genre.value>
               {{genre.name}}</option>
             </select> 
-          </div>  -->
+          </div> 
         <div class="field">
           <label for="publishingHouse" class="block text-gray-700 font-medium mb-2">Publishing House</label>
           <input [formControl]="bookForm.controls['publishingHouse']" id="publishingHouse"
@@ -45,7 +45,7 @@
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mx-2"
             maxlength="50" />
         </div>
-        <!-- <div class="field"> 
+        <div class="field"> 
             <label for="series" class="block text-gray-700 font-medium mb-2">Series (optional)</label> 
             <input [formControl]="bookForm.controls['series']" id="series" placeholder="Enter series" type="text" 
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mx-2" maxlength="50" /> 
@@ -54,7 +54,7 @@
             <label for="seriesPlace" class="block text-gray-700 font-medium mb-2">Rank in series (optional)</label> 
             <input [formControl]="bookForm.controls['seriesPlace']" id="seriesPlace" placeholder="Enter rank in series" type="number"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 mx-2" /> 
-          </div> -->
+          </div>
         <div class="field">
           <label for="pagesNumber" class="block text-gray-700 font-medium mb-2">Number of pages</label>
           <input [formControl]="bookForm.controls['pagesNumber']" id="pagesNumber" placeholder="Enter number of pages"

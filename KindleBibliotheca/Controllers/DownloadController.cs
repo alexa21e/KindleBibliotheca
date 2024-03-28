@@ -18,9 +18,9 @@ namespace KindleBibliotheca.Controllers
     [ApiController]
     public class DownloadController : ControllerBase
     {
-        private readonly IGenericRepository<Book> _booksRepo;
+        private readonly IBookRepository _booksRepo;
         private readonly IWebHostEnvironment environment;
-        public DownloadController(IGenericRepository<Book> booksRepo,
+        public DownloadController(IBookRepository booksRepo,
             IWebHostEnvironment hostEnvironment)
         {
             _booksRepo = booksRepo;

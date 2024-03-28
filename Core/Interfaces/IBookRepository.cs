@@ -1,4 +1,6 @@
 ﻿using Core.Entities;
+using Core.Specifications;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Interfaces
 {
@@ -6,9 +8,11 @@ namespace Core.Interfaces
     {
         Task<Book> GetBookByIdAsync(Guid id);
         Task<IReadOnlyList<Book>> GetBooksAsync();
-        Task<Series> GetSeriesByIdAsync(Guid id);
-        Task<IReadOnlyList<Series>> GetSeriesAsync();
-        Task<Author> GetAuthorByIdAsync(Guid id);
-        Task<IReadOnlyList<Author>> GetAuthorsAsync();
+        Task<int> CountAsync(ISpecification<Book> spec);
+        Task<IReadOnlyList<Book>> GetBooksWithSpecAsync(ISpecification<Book> spec);
+        Task<Book> GetEntityWithSpec(ISpecification<Book> spec);
+        void Add(Book book);
+        void Update(Book book);
+        Task SaveAsync();
     }
 }
