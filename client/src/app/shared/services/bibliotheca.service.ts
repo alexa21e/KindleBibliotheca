@@ -33,15 +33,15 @@ export class BibliothecaService {
     }
 
     getSeries() {
-        return this.http.get<Series[]>(this.baseUrl + 'books/series');
+        return this.http.get<Series[]>(this.baseUrl + 'series');
     }
 
     getAuthors() {
-        return this.http.get<Author[]>(this.baseUrl + 'books/authors');
+        return this.http.get<Author[]>(this.baseUrl + 'authors');
     }
 
     createBook(values: any){
-        return this.http.post<Book>(this.baseUrl + 'books/newbook', values);
+        return this.http.post<Book>(this.baseUrl + 'books/new', values);
     }
 
     uploadCover(id: string, file: any){
