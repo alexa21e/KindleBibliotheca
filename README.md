@@ -3,11 +3,12 @@ Welcome to the Kindle Bibliotheca .NET Web API repository! This application simu
 
 
 ## Features
-- Add and delete books in the library. Retrieve detailed information about books, including author, genre and so on
-
-- Powerful search capabilities to find books based on title, author, genre or series
-
-- Use ASP.NET Identity for login and registration
+- Browse the books in the library(data retrieved from .json seed files)
+- Search books bu title
+- Filter books by authors and series
+- Sort books in various orders
+- Upload books(both covers and .pdf or .epub files)
+- Download books(if they are already uploaded)
 
 
 
