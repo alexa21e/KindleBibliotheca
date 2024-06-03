@@ -1,16 +1,5 @@
-﻿using AutoMapper;
-using Core.Entities;
-using Core.Interfaces;
-using Core.Specifications;
-using KindleBibliotheca.DTOs;
-using KindleBibliotheca.Errors;
-using Microsoft.AspNetCore.Http;
+﻿using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Net;
 
 namespace KindleBibliotheca.Controllers
 {
@@ -19,25 +8,21 @@ namespace KindleBibliotheca.Controllers
     public class DownloadController : ControllerBase
     {
         private readonly IBookRepository _booksRepo;
-        private readonly IWebHostEnvironment environment;
+        private readonly IWebHostEnvironment _environment;
         public DownloadController(IBookRepository booksRepo,
             IWebHostEnvironment hostEnvironment)
         {
             _booksRepo = booksRepo;
-            environment = hostEnvironment;
+            _environment = hostEnvironment;
         }
 
-        [HttpGet("pdf/{bookId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Downloads the PDF format of a specific book")]
-        public async Task<ActionResult> DownloadPDF(Guid bookId)
+        [HttpGet("pdf/{id}")]
+        public async Task<IActionResult> DownloadPDF(Guid id)
         {
-            var spec = new BooksWithSeriesAndAuthorsSpecifications(bookId);
-            var book = await _booksRepo.GetEntityWithSpec(spec);
+            var book = await _booksRepo.GetBookByIdAsync(id);
             if (book == null)
             {
-                return NotFound(new ApiResponse(404));
+                return NotFound("Book not found");
             }
 
             if (string.IsNullOrEmpty(book.PDFUrl))
@@ -45,10 +30,21 @@ namespace KindleBibliotheca.Controllers
                 return BadRequest("The PDF format of the book doesn't exist in the database");
             }
 
-            var filePath = Path.Combine(environment.WebRootPath, book.PDFUrl);
+            var filePath = Path.Combine(_environment.WebRootPath, book.PDFUrl);
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("File not found");
+            }
 
-            return File(System.IO.File.ReadAllBytes(filePath), "application/pdf", System.IO.Path.GetFileName(filePath));
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/pdf", Path.GetFileName(filePath));
         }
     }
 }
+
 

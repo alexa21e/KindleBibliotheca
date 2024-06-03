@@ -1,12 +1,5 @@
-﻿using AutoMapper;
-using Core.Entities;
-using Core.Interfaces;
-using Core.Specifications;
-using KindleBibliotheca.Errors;
-using Microsoft.AspNetCore.Http;
+﻿using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace KindleBibliotheca.Controllers
 {
@@ -15,92 +8,86 @@ namespace KindleBibliotheca.Controllers
     public class UploadController : ControllerBase
     {
         private readonly IBookRepository _booksRepo;
-        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
-        public UploadController(IBookRepository booksRepo, IMapper mapper)
+        public UploadController(IBookRepository booksRepo, IWebHostEnvironment environment)
         {
-            _mapper = mapper;
             _booksRepo = booksRepo;
+            _environment = environment;
         }
 
         [HttpPost("cover/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Uploads a cover for a specific book")]
-        public async Task<IActionResult> UploadCover(Guid id)
+        public async Task<IActionResult> UploadCover(Guid id, IFormFile file)
         {
-            var spec = new BooksWithSeriesAndAuthorsSpecifications(id);
-            var book = await _booksRepo.GetEntityWithSpec(spec);
-            try
+            if (file == null || file.Length == 0)
             {
-                var file = Request.Form.Files[0];
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest("No file uploaded");
-                }
-
-                var folderName = Path.Combine("wwwroot", "images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(pathToSave, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                book.CoverUrl = Path.Combine("images", fileName);
-                _booksRepo.Update(book);
-
-                await _booksRepo.SaveAsync();
-
-                return Ok(book);
+                return BadRequest("No file uploaded");
             }
-            catch (Exception ex)
+
+            var book = await _booksRepo.GetBookByIdAsync(id);
+            if (book == null)
             {
-                return BadRequest(new ApiResponse(400, ex.Message));
+                return NotFound("Book not found");
             }
+
+            var folderName = Path.Combine("wwwroot", "images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            if (!Directory.Exists(pathToSave))
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(pathToSave, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            book.CoverUrl = Path.Combine("images", fileName);
+            _booksRepo.Update(book);
+            await _booksRepo.SaveAsync();
+
+            return Ok(new { book.CoverUrl });
         }
 
         [HttpPost("pdf/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        [SwaggerOperation(Summary = "Uploads a PDF for a specific book")]
-        public async Task<IActionResult> UploadPDF(Guid id)
+        public async Task<IActionResult> UploadPDF(Guid id, IFormFile file)
         {
-            var spec = new BooksWithSeriesAndAuthorsSpecifications(id);
-            var book = await _booksRepo.GetEntityWithSpec(spec);
-            try
+            if (file == null || file.Length == 0)
             {
-                var file = Request.Form.Files[0];
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest("No file uploaded");
-                }
-
-                var folderName = Path.Combine("wwwroot", "PDF");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(pathToSave, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                book.PDFUrl = Path.Combine("PDF", fileName);
-                _booksRepo.Update(book);
-
-                await _booksRepo.SaveAsync();
-
-                return Ok(book);
+                return BadRequest("No file uploaded");
             }
-            catch (Exception ex)
+
+            var book = await _booksRepo.GetBookByIdAsync(id);
+            if (book == null)
             {
-                return BadRequest(new ApiResponse(400, ex.Message));
+                return NotFound("Book not found");
             }
+
+            var folderName = Path.Combine("wwwroot", "PDF");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            if (!Directory.Exists(pathToSave))
+            {
+                Directory.CreateDirectory(pathToSave);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(pathToSave, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            book.PDFUrl = Path.Combine("PDF", fileName);
+            _booksRepo.Update(book);
+            await _booksRepo.SaveAsync();
+
+            return Ok(new { book.PDFUrl });
         }
     }
 }
