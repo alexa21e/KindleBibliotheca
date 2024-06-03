@@ -45,10 +45,6 @@ export class BibliothecaService {
         return this.http.post<Book>(this.baseUrl + '/books/new', values);
     }
 
-    uploadCover(id: string, formData: FormData): Observable<any>{
-        return this.http.post('${this.baseUrl}/upload/cover/${id}', formData);
-    }
-
     uploadPDF(id: string, formData: FormData): Observable<any>{
         return this.http.post(`${this.baseUrl}/upload/pdf/${id}`, formData);
     }

@@ -40,34 +40,7 @@ export class BookDetailsComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  uploadCover(id: string | undefined) {
-    if (!id) {
-      console.error('Book ID is undefined');
-      return;
-    }
-
-    if (!this.selectedFile) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-
-    this.bibliothecaService.uploadCover(id, formData).subscribe(
-      {
-        next: (response) => {
-          this.book!.coverUrl = response.coverUrl;
-          this.selectedFile = null;
-          this.hideCoverDialog();
-        },
-        error: (error) => {
-          console.error('Error uploading file:', error);
-        }
-      }
-    );
-  }
-
-  uploadPDF(id: string | undefined) {
+   uploadPDF(id: string | undefined) {
     if (!id) {
       console.error('Book ID is undefined');
       return;
