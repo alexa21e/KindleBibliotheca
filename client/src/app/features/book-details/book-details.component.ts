@@ -40,7 +40,12 @@ export class BookDetailsComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  uploadCover(id: string) {
+  uploadCover(id: string | undefined) {
+    if (!id) {
+      console.error('Book ID is undefined');
+      return;
+    }
+
     if (!this.selectedFile) {
       return;
     }
@@ -49,17 +54,25 @@ export class BookDetailsComponent implements OnInit {
     formData.append('file', this.selectedFile);
 
     this.bibliothecaService.uploadCover(id, formData).subscribe(
-      (next) => {
-      },
-      (error) => {
-        console.error('Error uploading file:', error);
+      {
+        next: (response) => {
+          this.book!.coverUrl = response.coverUrl;
+          this.selectedFile = null;
+          this.hideCoverDialog();
+        },
+        error: (error) => {
+          console.error('Error uploading file:', error);
+        }
       }
     );
-    this.hideCoverDialog();
-    this.loadBook
   }
 
-  uploadPDF(id: string) {
+  uploadPDF(id: string | undefined) {
+    if (!id) {
+      console.error('Book ID is undefined');
+      return;
+    }
+
     if (!this.selectedFile) {
       return;
     }
@@ -68,21 +81,34 @@ export class BookDetailsComponent implements OnInit {
     formData.append('file', this.selectedFile);
 
     this.bibliothecaService.uploadPDF(id, formData).subscribe(
-      (next) => {
-      },
-      (error) => {
-        console.error('Error uploading file:', error);
+      {
+        next: (response) => {
+          this.book!.pdfUrl = response.pdfUrl;
+          this.selectedFile = null;
+          this.hidePDFDialog();
+        },
+        error: (error) => {
+          console.error('Error uploading file:', error);
+        }
       }
     );
     this.hidePDFDialog();
     this.loadBook();
   }
 
-  downloadPDF(id: string) {
+  downloadPDF(id: string| undefined ) {
+    if (!id) {
+      console.error('Book ID is undefined');
+      return;
+    }
     this.bibliothecaService.downloadPDF(id).subscribe(
       (blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
-        window.open(url);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = this.book?.title + '.pdf'; // Give a meaningful file name
+        link.click();
+        window.URL.revokeObjectURL(url);
       },
       (error) => {
         console.error('Error downloading file:', error);

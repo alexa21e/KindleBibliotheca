@@ -5,13 +5,14 @@ import { Book } from "../models/book";
 import { Series } from "../models/series";
 import { Author } from "../models/author";
 import { BiblParams } from "../models/biblParams";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class BibliothecaService {
-    baseUrl = 'https://localhost:5001/api/'
+    baseUrl = 'https://localhost:5001/api'
     constructor(private http: HttpClient) {
     }
 
@@ -25,34 +26,34 @@ export class BibliothecaService {
         params = params.append('pageSize', biblParams.pageSize);
         if(biblParams.search) params = params.append('search', biblParams.search);
 
-        return this.http.get<Pagination<Book[]>>(this.baseUrl + 'books', { params });
+        return this.http.get<Pagination<Book[]>>(this.baseUrl + '/books', { params });
     }
 
     getBook(id: string){
-        return this.http.get<Book>(this.baseUrl + 'books/' + id);
+        return this.http.get<Book>(this.baseUrl + '/books/' + id);
     }
 
     getSeries() {
-        return this.http.get<Series[]>(this.baseUrl + 'series');
+        return this.http.get<Series[]>(this.baseUrl + '/series');
     }
 
     getAuthors() {
-        return this.http.get<Author[]>(this.baseUrl + 'authors');
+        return this.http.get<Author[]>(this.baseUrl + '/authors');
     }
 
     createBook(values: any){
-        return this.http.post<Book>(this.baseUrl + 'books/new', values);
+        return this.http.post<Book>(this.baseUrl + '/books/new', values);
     }
 
-    uploadCover(id: string, file: any){
-        return this.http.post(this.baseUrl + 'upload/cover/' + id, file);
+    uploadCover(id: string, formData: FormData): Observable<any>{
+        return this.http.post('${this.baseUrl}/upload/cover/${id}', formData);
     }
 
-    uploadPDF(id: string, file: any){
-        return this.http.post(this.baseUrl + 'upload/pdf/' + id, file);
+    uploadPDF(id: string, formData: FormData): Observable<any>{
+        return this.http.post(`${this.baseUrl}/upload/pdf/${id}`, formData);
     }
 
-    downloadPDF(id: string){
-        return this.http.get(this.baseUrl + 'download/pdf/' + id, { responseType: 'blob' });
+    downloadPDF(id: string): Observable<Blob>{
+        return this.http.get(`${this.baseUrl}/download/pdf/${id}`, { responseType: 'blob' });
     }
 }
